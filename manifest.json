@@ -1,0 +1,27 @@
+{
+  "name": "DFW Contracting — Business OS",
+  "short_name": "DFW BOS",
+  "description": "Business operating system for DFW general contracting — leads, estimates, projects, invoices, vendors, and accounting in one app.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0f0f",
+  "theme_color": "#1a1a1a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='24' fill='%231a1a1a'/%3E%3Crect x='40' y='40' width='112' height='112' rx='16' fill='%2322c55e'/%3E%3Ctext x='96' y='112' font-family='Arial' font-size='72' font-weight='bold' fill='%23000' text-anchor='middle'%3ED%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='48' fill='%231a1a1a'/%3E%3Crect x='100' y='100' width='312' height='312' rx='40' fill='%2322c55e'/%3E%3Ctext x='256' y='296' font-family='Arial' font-size='200' font-weight='bold' fill='%23000' text-anchor='middle'%3ED%3C/text%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity"],
+  "lang": "en-US",
+  "dir": "ltr"
+}
