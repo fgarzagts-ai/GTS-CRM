@@ -3,21 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Greater Texas Systems CRM</title>
+<title>DFW Contracting — Business Operating System</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#1a1a1a">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="GTS CRM">
+<meta name="apple-mobile-web-app-title" content="DFW BOS">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{
   --bg:#0f0f0f;--bg2:#161616;--bg3:#1e1e1e;--bg4:#262626;
   --border:#2a2a2a;--border2:#333;
   --text:#f0ede8;--text2:#9a9690;--text3:#5a5750;
-  --green:#22c55e;--green-bg:#0d2818;--green-text:#4ade80;
+  --green:#22c55e;--green-dim:#16a34a;--green-bg:#0d2818;--green-text:#4ade80;
   --gold:#f59e0b;--gold-bg:#1c1500;--gold-text:#fbbf24;
   --red:#ef4444;--red-bg:#1f0707;--red-text:#f87171;
   --blue:#3b82f6;--blue-bg:#070f1f;--blue-text:#60a5fa;
@@ -30,58 +30,25 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 ::-webkit-scrollbar{width:4px;height:4px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+a{color:var(--blue-text);text-decoration:none}
 
-/* ── LOGIN SCREEN ── */
-.login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;background:var(--bg)}
-.login-card{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r3);padding:36px;width:100%;max-width:400px}
-.login-logo{display:flex;align-items:center;gap:12px;margin-bottom:28px}
-.login-logo-icon{width:40px;height:40px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:#000}
-.login-logo-text{font-size:16px;font-weight:600;color:var(--text);line-height:1.2}
-.login-logo-sub{font-size:11px;color:var(--text3);font-family:var(--mono)}
-.login-title{font-size:18px;font-weight:600;margin-bottom:6px}
-.login-sub{font-size:12px;color:var(--text3);margin-bottom:24px}
-.form-row{margin-bottom:14px}
-.form-row label{display:block;font-size:11px;font-weight:500;color:var(--text3);margin-bottom:5px;letter-spacing:.02em}
-.form-row input{width:100%;padding:10px 12px;border:1px solid var(--border2);border-radius:var(--r);font-size:13px;background:var(--bg3);color:var(--text);font-family:var(--font);outline:none;transition:border .12s}
-.form-row input:focus{border-color:var(--accent)}
-.login-btn{width:100%;padding:11px;background:var(--accent);color:#000;border:none;border-radius:var(--r);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);transition:opacity .12s;margin-top:4px}
-.login-btn:hover{opacity:.88}
-.login-btn:disabled{opacity:.5;cursor:not-allowed}
-.login-error{background:var(--red-bg);color:var(--red-text);border:1px solid var(--red);border-radius:var(--r);padding:9px 12px;font-size:12px;margin-bottom:14px;display:none}
-.login-error.show{display:block}
-.login-forgot{text-align:center;margin-top:14px;font-size:11px;color:var(--text3)}
-.login-forgot a{color:var(--accent);cursor:pointer;text-decoration:none}
-
-/* ── RESET PASSWORD SCREEN ── */
-.reset-screen{display:none}
-.reset-screen.show{display:flex}
-
-/* ── APP LAYOUT ── */
-.app{display:none;grid-template-columns:220px 1fr;min-height:100vh}
-.app.show{display:grid}
+/* ── LAYOUT ── */
+.app{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
 @media(max-width:768px){.app{grid-template-columns:1fr}.sidebar{display:none}}
 
 /* ── SIDEBAR ── */
 .sidebar{background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}
-.sidebar-logo{padding:18px 16px 14px;border-bottom:1px solid var(--border)}
-.logo-mark{display:flex;align-items:center;gap:10px;margin-bottom:6px}
-.logo-icon{width:30px;height:30px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#000;flex-shrink:0}
-.logo-text{font-size:13px;font-weight:600;color:var(--text)}
-.logo-sub{font-size:10px;color:var(--text3);font-family:var(--mono)}
-.user-pill{display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--bg3);border-radius:var(--r);margin-top:8px}
-.user-avatar{width:22px;height:22px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#000;flex-shrink:0}
-.user-info{flex:1;overflow:hidden}
-.user-name{font-size:11px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.user-role{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em}
-.user-logout{font-size:13px;color:var(--text3);cursor:pointer;flex-shrink:0;padding:2px}
-.user-logout:hover{color:var(--red-text)}
-.nav-section{padding:10px 16px 3px;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text3)}
-.nav-item{display:flex;align-items:center;gap:9px;padding:8px 16px;cursor:pointer;font-size:12px;color:var(--text2);border-left:2px solid transparent;transition:all .12s;white-space:nowrap}
+.sidebar-logo{padding:20px 16px 16px;border-bottom:1px solid var(--border)}
+.logo-mark{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.logo-icon{width:32px;height:32px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;color:#000;font-weight:600}
+.logo-text{font-size:14px;font-weight:600;color:var(--text)}
+.logo-sub{font-size:11px;color:var(--text3);font-family:var(--mono)}
+.nav-section{padding:12px 16px 4px;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text3)}
+.nav-item{display:flex;align-items:center;gap:9px;padding:8px 16px;cursor:pointer;font-size:12px;color:var(--text2);border-left:2px solid transparent;transition:all .12s;white-space:nowrap;overflow:hidden}
 .nav-item:hover{background:var(--bg3);color:var(--text)}
 .nav-item.active{color:var(--accent);border-left-color:var(--accent);background:var(--bg3)}
 .nav-item i{font-size:15px;flex-shrink:0;opacity:.8}
 .nav-item.active i{opacity:1}
-.nav-item.hidden{display:none}
 .nav-badge{margin-left:auto;font-size:10px;padding:1px 6px;border-radius:10px;background:var(--red-bg);color:var(--red-text);font-weight:500}
 
 /* ── MAIN ── */
@@ -104,7 +71,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 /* ── CARDS ── */
 .card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;margin-bottom:16px}
 .card-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--bg3)}
-.card-header h3{font-size:12px;font-weight:600;color:var(--text)}
+.card-header h3{font-size:12px;font-weight:600;color:var(--text);letter-spacing:.01em}
+.card-actions{display:flex;gap:6px}
 
 /* ── TABLE ── */
 .table-wrap{overflow-x:auto}
@@ -127,40 +95,38 @@ tr:hover td{background:rgba(255,255,255,.02)}
 
 /* ── BUTTONS ── */
 .btn{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border-radius:var(--r);border:1px solid var(--border2);background:var(--bg3);cursor:pointer;font-size:12px;color:var(--text);font-family:var(--font);transition:all .12s;white-space:nowrap}
-.btn:hover{background:var(--bg4)}
+.btn:hover{background:var(--bg4);border-color:var(--border2)}
 .btn-primary{background:var(--accent);color:#000;border-color:var(--accent);font-weight:600}
-.btn-primary:hover{opacity:.88}
+.btn-primary:hover{background:#16a34a;border-color:#16a34a}
 .btn-sm{padding:5px 10px;font-size:11px}
 .btn-icon{padding:6px;width:30px;height:30px;justify-content:center}
 .btn i{font-size:14px}
-.btn.admin-only{display:none}
-.admin-mode .btn.admin-only{display:inline-flex}
+.btn-sm i{font-size:13px}
 
 /* ── MODAL ── */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
 .modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r3);width:100%;max-width:520px;max-height:90vh;overflow-y:auto}
 .modal-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border)}
-.modal-head h3{font-size:14px;font-weight:600}
+.modal-head h3{font-size:14px;font-weight:600;color:var(--text)}
 .modal-body{padding:18px}
 .modal-foot{padding:12px 18px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end}
 
 /* ── FORMS ── */
 .form-row{margin-bottom:14px}
-.form-row label{display:block;font-size:11px;font-weight:500;color:var(--text3);margin-bottom:5px}
-.form-row input,.form-row select,.form-row textarea{width:100%;padding:8px 11px;border:1px solid var(--border2);border-radius:var(--r);font-size:12px;background:var(--bg3);color:var(--text);font-family:var(--font);outline:none;transition:border .12s}
+.form-row label{display:block;font-size:11px;font-weight:500;color:var(--text3);margin-bottom:5px;letter-spacing:.02em}
+.form-row input,.form-row select,.form-row textarea{width:100%;padding:8px 11px;border:1px solid var(--border2);border-radius:var(--r);font-size:12px;background:var(--bg3);color:var(--text);font-family:var(--font);transition:border .12s;outline:none}
 .form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:var(--accent)}
 .form-row textarea{resize:vertical;min-height:64px}
 .form-row select option{background:var(--bg3)}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .form-calc{padding:8px 11px;border:1px solid var(--border);border-radius:var(--r);font-size:12px;background:var(--bg4);color:var(--text);min-height:36px;display:flex;align-items:center}
 
-/* ── NOTICES ── */
+/* ── NOTICE BOXES ── */
 .notice{border-radius:var(--r);padding:10px 14px;font-size:12px;line-height:1.6;margin-bottom:16px;border-left:3px solid}
 .notice-gold{background:var(--gold-bg);color:var(--gold-text);border-color:var(--gold)}
 .notice-green{background:var(--green-bg);color:var(--green-text);border-color:var(--green)}
 .notice-blue{background:var(--blue-bg);color:var(--blue-text);border-color:var(--blue)}
 .notice-gray{background:var(--bg3);color:var(--text2);border-color:var(--border2);font-style:italic}
-.notice-red{background:var(--red-bg);color:var(--red-text);border-color:var(--red)}
 
 /* ── PIPELINE ── */
 .pipeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:8px;margin-bottom:20px}
@@ -179,21 +145,26 @@ tr:hover td{background:rgba(255,255,255,.02)}
 .checklist-item input[type=checkbox]{margin-top:2px;width:15px;height:15px;accent-color:var(--accent);flex-shrink:0;cursor:pointer}
 .checklist-text{font-size:12px;color:var(--text);line-height:1.5}
 
-/* ── EMPTY ── */
+/* ── EMPTY STATE ── */
 .empty{text-align:center;padding:40px 20px;color:var(--text3)}
 .empty i{font-size:36px;display:block;margin-bottom:10px;opacity:.4}
 .empty p{font-size:12px}
 
-/* ── ADMIN PANEL ── */
-.admin-panel{background:var(--purple-bg);border:1px solid var(--purple);border-radius:var(--r2);padding:14px;margin-bottom:16px}
-.admin-panel-title{font-size:11px;font-weight:600;color:var(--purple-text);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
-
-/* ── MOBILE ── */
+/* ── MOBILE TOGGLE ── */
 .mobile-nav-toggle{display:none;position:fixed;bottom:20px;right:20px;width:48px;height:48px;background:var(--accent);border-radius:50%;border:none;cursor:pointer;color:#000;font-size:22px;z-index:100;align-items:center;justify-content:center}
 @media(max-width:768px){.mobile-nav-toggle{display:flex}.main{padding:16px}}
+
+/* ── MOBILE SIDEBAR ── */
 .sidebar.mobile-open{display:flex;position:fixed;left:0;top:0;z-index:150;height:100vh;width:240px}
 .mobile-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:140}
 .mobile-overlay.active{display:block}
+
+/* ── ACTIVITY ── */
+.activity-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.activity-item:last-child{border:none}
+.act-dot{width:8px;height:8px;border-radius:50%;margin-top:3px;flex-shrink:0}
+.act-body{font-size:12px;line-height:1.5}
+.act-time{font-size:10px;color:var(--text3);margin-top:2px}
 
 /* ── MILESTONE ── */
 .milestone{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
@@ -201,668 +172,659 @@ tr:hover td{background:rgba(255,255,255,.02)}
 .milestone i{font-size:16px;flex-shrink:0}
 .milestone-text{flex:1;font-size:12px}
 .milestone-score{font-size:11px;color:var(--text3)}
-
-/* ── LOADING ── */
-.loading-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--bg);flex-direction:column;gap:12px}
-.loading-spinner{width:32px;height:32px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.loading-text{font-size:12px;color:var(--text3)}
 </style>
 </head>
 <body>
 
-<!-- LOADING -->
-<div class="loading-screen" id="loading-screen">
-  <div class="loading-spinner"></div>
-  <div class="loading-text">Loading Greater Texas Systems CRM...</div>
-</div>
+<div class="app" id="app">
 
-<!-- LOGIN -->
-<div class="login-screen" id="login-screen" style="display:none">
-  <div class="login-card">
-    <div class="login-logo">
-      <div class="login-logo-icon">G</div>
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">
+      <div class="logo-icon">D</div>
       <div>
-        <div class="login-logo-text">Greater Texas Systems</div>
-        <div class="login-logo-sub">CRM &amp; Business OS</div>
+        <div class="logo-text" id="logo-bizname">DFW Contracting Co.</div>
+        <div class="logo-sub">Business OS v1.0</div>
       </div>
     </div>
-    <div class="login-title">Sign in</div>
-    <div class="login-sub">Enter your credentials to access the system</div>
-    <div class="login-error" id="login-error"></div>
-    <div class="form-row"><label>Email address</label><input type="email" id="login-email" placeholder="you@example.com" autocomplete="email"></div>
-    <div class="form-row"><label>Password</label><input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password"></div>
-    <button class="login-btn" id="login-btn" onclick="doLogin()">Sign in</button>
-    <div class="login-forgot"><a onclick="showForgot()">Forgot your password?</a></div>
   </div>
+
+  <div class="nav-section">Overview</div>
+  <div class="nav-item active" onclick="nav('dashboard')"><i class="ti ti-layout-dashboard"></i> Dashboard</div>
+
+  <div class="nav-section">Sales Pipeline</div>
+  <div class="nav-item" onclick="nav('marketing')"><i class="ti ti-speakerphone"></i> Marketing</div>
+  <div class="nav-item" onclick="nav('leads')"><i class="ti ti-user-plus"></i> Leads &amp; CRM</div>
+  <div class="nav-item" onclick="nav('estimates')"><i class="ti ti-file-dollar"></i> Estimates &amp; Bids</div>
+
+  <div class="nav-section">Operations</div>
+  <div class="nav-item" onclick="nav('projects')"><i class="ti ti-hammer"></i> Projects</div>
+  <div class="nav-item" onclick="nav('vendors')"><i class="ti ti-truck"></i> Vendors &amp; POs</div>
+  <div class="nav-item" onclick="nav('field')"><i class="ti ti-clipboard-list"></i> Field Checklists</div>
+
+  <div class="nav-section">Finance</div>
+  <div class="nav-item" onclick="nav('invoices')"><i class="ti ti-receipt"></i> Invoices</div>
+  <div class="nav-item" onclick="nav('accounting')"><i class="ti ti-chart-bar"></i> Accounting Export</div>
+
+  <div class="nav-section">Growth</div>
+  <div class="nav-item" onclick="nav('subs')"><i class="ti ti-users"></i> Subcontractors</div>
+  <div class="nav-item" onclick="nav('realestate')"><i class="ti ti-building"></i> Real Estate</div>
+  <div class="nav-item" onclick="nav('credit')"><i class="ti ti-trending-up"></i> Credit &amp; Building</div>
+</aside>
+
+<!-- MOBILE OVERLAY -->
+<div class="mobile-overlay" id="mob-overlay" onclick="closeMobileNav()"></div>
+
+<!-- MAIN -->
+<main class="main" id="main-content"></main>
 </div>
 
-<!-- FORGOT PASSWORD -->
-<div class="login-screen" id="forgot-screen" style="display:none">
-  <div class="login-card">
-    <div class="login-logo">
-      <div class="login-logo-icon">G</div>
-      <div>
-        <div class="login-logo-text">Greater Texas Systems</div>
-        <div class="login-logo-sub">Password Reset</div>
-      </div>
-    </div>
-    <div class="login-title">Reset password</div>
-    <div class="login-sub">Enter your email and we'll send a reset link</div>
-    <div class="login-error" id="forgot-error"></div>
-    <div id="forgot-success" style="background:var(--green-bg);color:var(--green-text);border:1px solid var(--green);border-radius:var(--r);padding:9px 12px;font-size:12px;margin-bottom:14px;display:none">Reset link sent! Check your email.</div>
-    <div class="form-row"><label>Email address</label><input type="email" id="forgot-email" placeholder="you@example.com"></div>
-    <button class="login-btn" onclick="doForgot()">Send reset link</button>
-    <div class="login-forgot"><a onclick="showLogin()">Back to sign in</a></div>
-  </div>
-</div>
+<!-- MOBILE NAV TOGGLE -->
+<button class="mobile-nav-toggle" onclick="toggleMobileNav()" aria-label="Menu">
+  <i class="ti ti-menu-2"></i>
+</button>
 
-<!-- APP -->
-<div class="app" id="app-shell">
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-logo">
-      <div class="logo-mark">
-        <div class="logo-icon">G</div>
-        <div>
-          <div class="logo-text">Greater Texas Systems</div>
-          <div class="logo-sub">CRM v1.0</div>
-        </div>
-      </div>
-      <div class="user-pill">
-        <div class="user-avatar" id="user-avatar">?</div>
-        <div class="user-info">
-          <div class="user-name" id="user-name-display">Loading...</div>
-          <div class="user-role" id="user-role-display">—</div>
-        </div>
-        <i class="ti ti-logout user-logout" onclick="doLogout()" title="Sign out"></i>
-      </div>
-    </div>
-    <div class="nav-section">Overview</div>
-    <div class="nav-item active" onclick="nav('dashboard')"><i class="ti ti-layout-dashboard"></i> Dashboard</div>
-    <div class="nav-section">Sales Pipeline</div>
-    <div class="nav-item" id="nav-marketing" onclick="nav('marketing')"><i class="ti ti-speakerphone"></i> Marketing</div>
-    <div class="nav-item" onclick="nav('leads')"><i class="ti ti-user-plus"></i> Leads &amp; CRM</div>
-    <div class="nav-item" onclick="nav('estimates')"><i class="ti ti-file-dollar"></i> Estimates &amp; Bids</div>
-    <div class="nav-section">Operations</div>
-    <div class="nav-item" onclick="nav('projects')"><i class="ti ti-hammer"></i> Projects</div>
-    <div class="nav-item" onclick="nav('vendors')"><i class="ti ti-truck"></i> Vendors &amp; POs</div>
-    <div class="nav-item" onclick="nav('field')"><i class="ti ti-clipboard-list"></i> Field Checklists</div>
-    <div class="nav-section">Finance</div>
-    <div class="nav-item" id="nav-invoices" onclick="nav('invoices')"><i class="ti ti-receipt"></i> Invoices</div>
-    <div class="nav-item" id="nav-accounting" onclick="nav('accounting')"><i class="ti ti-chart-bar"></i> Accounting Export</div>
-    <div class="nav-section">Growth</div>
-    <div class="nav-item" onclick="nav('subs')"><i class="ti ti-users"></i> Subcontractors</div>
-    <div class="nav-item" onclick="nav('realestate')"><i class="ti ti-building"></i> Real Estate</div>
-    <div class="nav-item" onclick="nav('credit')"><i class="ti ti-trending-up"></i> Credit &amp; Building</div>
-    <div class="nav-section" id="nav-section-admin" style="display:none">Admin</div>
-    <div class="nav-item" id="nav-team" style="display:none" onclick="nav('team')"><i class="ti ti-shield"></i> Team &amp; Access</div>
-  </aside>
-
-  <div class="mobile-overlay" id="mob-overlay" onclick="closeMobileNav()"></div>
-  <main class="main" id="main-content"></main>
-</div>
-
-<button class="mobile-nav-toggle" onclick="toggleMobileNav()"><i class="ti ti-menu-2"></i></button>
+<!-- MODAL -->
 <div id="modal-container"></div>
 
 <script>
-// ── SUPABASE ──────────────────────────────────────────────────
-const SUPABASE_URL = 'https://ncidqasgqihvjvjxhyir.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5jaWRxYXNncWlodmp2anhoeWlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkzODY0NjAsImV4cCI6MjA5NDk2MjQ2MH0.lbnfzit8siH6MLfFNhg8NP7v9GEF9-ddJRr31qaUeic';
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-let currentUser = null;
-let currentRole = 'field';
-
-// ── LOCAL DATA STORE ──────────────────────────────────────────
-const STORE = 'gts_bos_v3';
+// ── STORAGE ──────────────────────────────────────────────────────
+const STORE = 'dfw_bos_v3';
 let DB = {
-  bizName:'Greater Texas Systems CRM',
+  bizName:'DFW Contracting Co.',
   leads:[
-    {id:1,date:'2026-05-01',source:'Google',name:'Marcus Johnson',phone:'(214) 555-0182',city:'Irving, TX',service:'Interior Paint',scope:'3BR/2BA full repaint walls + ceilings',status:'Proposal Sent',estimate:3800,followup:'2026-05-21',notes:'Waiting on spouse decision',priority:'High'},
-    {id:2,date:'2026-05-05',source:'Realtor Referral',name:'Sandra Reyes',phone:'(972) 555-0341',city:'Garland, TX',service:'Make-Ready',scope:'Full make-ready for listing',status:'Estimate Scheduled',estimate:2200,followup:'2026-05-22',notes:'Realtor Tanya Moore KW',priority:'High'},
+    {id:1,date:'2026-05-01',source:'Google',name:'Marcus Johnson',phone:'(214) 555-0182',city:'Irving, TX',service:'Interior Paint',scope:'3BR/2BA full repaint walls + ceilings, neutral tones',status:'Proposal Sent',estimate:3800,followup:'2026-05-21',notes:'Waiting on spouse decision',priority:'High'},
+    {id:2,date:'2026-05-05',source:'Realtor Referral',name:'Sandra Reyes',phone:'(972) 555-0341',city:'Garland, TX',service:'Make-Ready',scope:'Full make-ready for listing: paint touch-up, drywall patch, flooring',status:'Estimate Scheduled',estimate:2200,followup:'2026-05-22',notes:'Realtor Tanya Moore at KW',priority:'High'},
     {id:3,date:'2026-05-08',source:'Nextdoor',name:'David Kim',phone:'(469) 555-0094',city:'Mesquite, TX',service:'Fence',scope:'80 LF cedar privacy fence 6ft',status:'New Lead',estimate:4500,followup:'2026-05-25',notes:'',priority:'Medium'},
+    {id:4,date:'2026-05-10',source:'Client Referral',name:'Angela Torres',phone:'(817) 555-0227',city:'Grand Prairie, TX',service:'Flooring',scope:'LVP 1400sqft, client supplies material',status:'New Lead',estimate:2800,followup:'2026-05-26',notes:'Referred by Marcus Johnson',priority:'Medium'},
+    {id:5,date:'2026-05-12',source:'Facebook',name:'Robert Haynes',phone:'(214) 555-0455',city:'Dallas, TX',service:'Drywall',scope:'40sqft water damage repair + texture + paint',status:'Estimate Scheduled',estimate:950,followup:'2026-05-20',notes:'Insurance job — verify coverage',priority:'High'},
   ],
   clients:[
-    {id:1001,name:'Marcus Johnson',phone:'(214) 555-0182',email:'marcus.j@email.com',city:'Irving, TX',service:'Interior Paint',jobDate:'2026-03-15',amount:3800,paid:true,review:true,rating:5,refs:2,nextFollowup:'2026-09-15',ltv:3800},
-    {id:1002,name:'Tony Nguyen',phone:'(214) 555-0773',email:'tnguyen@email.com',city:'Dallas, TX',service:'Fence',jobDate:'2025-11-20',amount:5200,paid:true,review:true,rating:5,refs:3,nextFollowup:'2026-05-20',ltv:5200},
+    {id:1001,name:'Marcus Johnson',phone:'(214) 555-0182',email:'marcus.j@email.com',city:'Irving, TX',service:'Interior Paint',jobDate:'2026-03-15',amount:3800,paid:true,review:true,rating:5,refs:2,nextFollowup:'2026-09-15',repeat:false,ltv:3800},
+    {id:1002,name:'Lisa Chambers',phone:'(972) 555-0819',email:'lchambers@mail.com',city:'Garland, TX',service:'Make-Ready',jobDate:'2026-02-28',amount:2100,paid:true,review:true,rating:5,refs:1,nextFollowup:'2026-08-28',repeat:false,ltv:2100},
+    {id:1003,name:'James Whitfield',phone:'(469) 555-0302',email:'jwhitfield@email.com',city:'Mesquite, TX',service:'Flooring',jobDate:'2026-01-10',amount:4200,paid:true,review:false,rating:0,refs:0,nextFollowup:'2026-05-20',repeat:false,ltv:4200},
+    {id:1004,name:'Carmen Reyes',phone:'(817) 555-0441',email:'creyes@mail.com',city:'Grand Prairie, TX',service:'Drywall',jobDate:'2026-04-02',amount:1150,paid:true,review:true,rating:4,refs:1,nextFollowup:'2026-07-02',repeat:false,ltv:1150},
+    {id:1005,name:'Tony Nguyen',phone:'(214) 555-0773',email:'tnguyen@email.com',city:'Dallas, TX',service:'Fence',jobDate:'2025-11-20',amount:5200,paid:true,review:true,rating:5,refs:3,nextFollowup:'2026-05-20',repeat:false,ltv:5200},
   ],
   estimates:[
-    {id:'EST-001',date:'2026-05-01',client:'Marcus Johnson',service:'Interior Paint',materials:1200,labor:2100,overhead:500,amount:3800,status:'Proposal Sent',notes:''},
+    {id:'EST-001',date:'2026-05-01',client:'Marcus Johnson',service:'Interior Paint',materials:1200,labor:2100,overhead:500,amount:3800,status:'Proposal Sent',notes:'3-tier proposal sent'},
+    {id:'EST-002',date:'2026-05-05',client:'Sandra Reyes',service:'Make-Ready',materials:600,labor:1300,overhead:300,amount:2200,status:'Pending',notes:'Walkthrough scheduled'},
+    {id:'EST-003',date:'2026-05-08',client:'David Kim',service:'Fence',materials:2100,labor:1800,overhead:600,amount:4500,status:'Sent',notes:'80 LF cedar'},
   ],
   projects:[
     {id:'JOB-001',client:'Marcus Johnson',service:'Interior Paint',startDate:'2026-05-20',endDate:'2026-05-22',status:'Scheduled',crew:'Owner',amount:3800,deposit:1900,balance:1900,notes:''},
+    {id:'JOB-002',client:'Lisa Chambers',service:'Make-Ready',startDate:'2026-04-10',endDate:'2026-04-11',status:'Complete',crew:'Owner',amount:2100,deposit:1050,balance:0,notes:''},
   ],
   vendors:[
     {id:1,name:'Home Depot - Irving',contact:'Account #44821',phone:'(972) 555-0001',terms:'Net30',category:'Materials'},
-    {id:2,name:'Sherwin-Williams #4422',contact:'Pro desk',phone:'(817) 555-0090',terms:'Net15',category:'Paint'},
+    {id:2,name:'84 Lumber - Garland',contact:'James B.',phone:'(214) 555-0050',terms:'COD',category:'Lumber'},
+    {id:3,name:'Sherwin-Williams #4422',contact:'Pro desk',phone:'(817) 555-0090',terms:'Net15',category:'Paint'},
   ],
   pos:[
     {id:'PO-001',vendor:'Home Depot - Irving',job:'JOB-001',date:'2026-05-15',items:'Paint supplies, tape, primer',amount:1180,status:'Ordered',eta:'2026-05-18',received:false},
+    {id:'PO-002',vendor:'84 Lumber - Garland',job:'TBD',date:'2026-05-10',items:'80 LF cedar boards, posts, hardware',amount:1950,status:'Received',eta:'2026-05-12',received:true},
   ],
   invoices:[
     {id:'INV-001',client:'Marcus Johnson',job:'JOB-001',date:'2026-05-20',amount:1900,type:'Deposit',status:'Paid',dueDate:'2026-05-20',paidDate:'2026-05-20'},
+    {id:'INV-002',client:'Lisa Chambers',job:'JOB-002',date:'2026-04-10',amount:1050,type:'Deposit',status:'Paid',dueDate:'2026-04-10',paidDate:'2026-04-10'},
+    {id:'INV-003',client:'Lisa Chambers',job:'JOB-002',date:'2026-04-11',amount:1050,type:'Final',status:'Paid',dueDate:'2026-04-14',paidDate:'2026-04-12'},
   ],
   marketing:[
     {id:1,channel:'Google Business',month:'May 2026',spend:0,leads:3,jobs:1,revenue:3800},
-    {id:2,channel:'Realtor Referral',month:'May 2026',spend:0,leads:1,jobs:1,revenue:2100},
+    {id:2,channel:'Nextdoor',month:'May 2026',spend:0,leads:1,jobs:0,revenue:0},
+    {id:3,channel:'Facebook',month:'May 2026',spend:80,leads:1,jobs:0,revenue:0},
+    {id:4,channel:'Realtor Referral',month:'May 2026',spend:0,leads:1,jobs:1,revenue:2100},
+    {id:5,channel:'Client Referral',month:'May 2026',spend:0,leads:1,jobs:0,revenue:0},
   ],
   subs:[
-    {id:1,name:'Carlos M.',trade:'Drywall & Texture',phone:'(214) 555-0310',rate:'$28/hr',w9:true,rating:5,jobs:3,notes:'Reliable'},
+    {id:1,name:'Carlos M.',trade:'Drywall & Texture',phone:'(214) 555-0310',rate:'$28/hr',w9:true,rating:5,jobs:3,notes:'Reliable — call first'},
+    {id:2,name:'DeShawn P.',trade:'Flooring',phone:'(469) 555-0221',rate:'$32/hr',w9:true,rating:4,jobs:2,notes:'Good on LVP installs'},
   ],
-  realEstate:[],
-  credit:{score:500,target:700,notes:'Secured card opened May 2026.',cards:[{name:'Secured Visa',limit:300,balance:45,util:'15%',status:'On Time'}]},
-  nLead:4,nClient:1003,nEst:2,nJob:2,nPO:2,nInv:2
+  realEstate:[
+    {id:1,address:'4821 Elm St, Garland TX',type:'Buy & Hold',status:'Analyzing',arv:185000,offer:130000,rehab:22000,agent:'Self',notes:'Off-market lead from Tony N.'},
+  ],
+  credit:{score:500,target:700,notes:'Secured card opened May 2026. Pay in full monthly.',cards:[{name:'Secured Visa',limit:300,balance:45,util:'15%',status:'On Time'}]},
+  nLead:6,nClient:1006,nEst:4,nJob:3,nPO:3,nInv:4
 };
+
 function loadDB(){try{const s=localStorage.getItem(STORE);if(s)DB=JSON.parse(s);}catch(e){}}
 function saveDB(){try{localStorage.setItem(STORE,JSON.stringify(DB));}catch(e){}}
 loadDB();
+if(DB.bizName)document.getElementById('logo-bizname').textContent=DB.bizName;
 
-// ── UTILS ─────────────────────────────────────────────────────
+// ── UTILS ─────────────────────────────────────────────────────────
 const $=id=>document.getElementById(id);
 const fmt$=v=>'$'+(Math.round(v||0)).toLocaleString();
 const today=()=>new Date().toISOString().split('T')[0];
 const isOverdue=d=>d&&d<today();
-const isAdmin=()=>currentRole==='admin';
-const isOffice=()=>currentRole==='admin'||currentRole==='office';
 
 function statusBadge(s){
   const m={'New Lead':'gray','Estimate Scheduled':'blue','Proposal Sent':'purple','Negotiating':'gold',
     'Deposit Received':'gold','Job Scheduled':'blue','In Progress':'blue','Won':'green','Lost':'red',
     'On Hold':'gray','Complete':'green','Scheduled':'blue','Ordered':'gold','Received':'green',
-    'Paid':'green','Overdue':'red','Pending':'gray','Sent':'blue'};
+    'Paid':'green','Overdue':'red','Pending':'gray','Sent':'blue','Analyzing':'purple','Active':'green','Closed':'gray'};
   return `<span class="badge badge-${m[s]||'gray'}">${s}</span>`;
 }
 function prioBadge(p){
   const m={High:'red',Medium:'gold',Low:'green'};
   return `<span class="badge badge-${m[p]||'gray'}">${p||'—'}</span>`;
 }
+
 function closeModal(){$('modal-container').innerHTML='';}
 function openModal(html){$('modal-container').innerHTML=`<div class="modal-overlay" onclick="if(event.target===this)closeModal()">${html}</div>`;}
 
-// ── AUTH FUNCTIONS ────────────────────────────────────────────
-async function doLogin(){
-  const email=$('login-email').value.trim();
-  const pass=$('login-password').value;
-  const btn=$('login-btn');
-  const err=$('login-error');
-  if(!email||!pass){showErr(err,'Please enter your email and password.');return;}
-  btn.disabled=true;btn.textContent='Signing in...';
-  err.classList.remove('show');
-  const {data,error}=await sb.auth.signInWithPassword({email,password:pass});
-  if(error){
-    showErr(err,error.message);
-    btn.disabled=false;btn.textContent='Sign in';
-  }
+// ── MOBILE NAV ──────────────────────────────────────────────────
+function toggleMobileNav(){
+  const s=$('sidebar');const o=$('mob-overlay');
+  s.classList.toggle('mobile-open');o.classList.toggle('active');
+}
+function closeMobileNav(){
+  $('sidebar').classList.remove('mobile-open');
+  $('mob-overlay').classList.remove('active');
 }
 
-async function doLogout(){
-  await sb.auth.signOut();
-  currentUser=null;currentRole='field';
-  $('app-shell').classList.remove('show');
-  $('app-shell').style.display='none';
-  showLogin();
-}
-
-async function doForgot(){
-  const email=$('forgot-email').value.trim();
-  const err=$('forgot-error');
-  if(!email){showErr(err,'Please enter your email.');return;}
-  const {error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:window.location.href});
-  if(error){showErr(err,error.message);}
-  else{$('forgot-success').style.display='block';}
-}
-
-function showErr(el,msg){el.textContent=msg;el.classList.add('show');}
-function showLogin(){$('login-screen').style.display='flex';$('forgot-screen').style.display='none';$('loading-screen').style.display='none';}
-function showForgot(){$('forgot-screen').style.display='flex';$('login-screen').style.display='none';}
-
-// ── LOAD USER ROLE ────────────────────────────────────────────
-async function loadUserRole(user){
-  try{
-    const {data}=await sb.from('user_profiles').select('role,full_name').eq('id',user.id).single();
-    if(data){
-      currentRole=data.role||'field';
-      const name=data.full_name||user.email;
-      $('user-name-display').textContent=name;
-      $('user-role-display').textContent=currentRole.charAt(0).toUpperCase()+currentRole.slice(1);
-      $('user-avatar').textContent=name.charAt(0).toUpperCase();
-    } else {
-      // Profile not in DB yet — default to field, show email
-      currentRole='field';
-      $('user-name-display').textContent=user.email;
-      $('user-role-display').textContent='Field';
-      $('user-avatar').textContent=user.email.charAt(0).toUpperCase();
-    }
-  } catch(e){
-    currentRole='field';
-    $('user-name-display').textContent=user.email;
-    $('user-role-display').textContent='Field';
-  }
-  applyRolePermissions();
-}
-
-function applyRolePermissions(){
-  // Admin-only nav items
-  const adminItems=['nav-team','nav-section-admin','nav-accounting','nav-marketing'];
-  adminItems.forEach(id=>{
-    const el=$(id);
-    if(el) el.style.display=isAdmin()?'':'none';
-  });
-  // Office + admin can see invoices
-  if($('nav-invoices')) $('nav-invoices').style.display=isOffice()?'':'none';
-  // Add admin class to app for CSS targeting
-  if(isAdmin()) document.getElementById('app-shell').classList.add('admin-mode');
-  else document.getElementById('app-shell').classList.remove('admin-mode');
-}
-
-// ── SESSION HANDLER ───────────────────────────────────────────
-sb.auth.onAuthStateChange(async(event,session)=>{
-  $('loading-screen').style.display='none';
-  if(session&&session.user){
-    currentUser=session.user;
-    await loadUserRole(session.user);
-    $('login-screen').style.display='none';
-    $('forgot-screen').style.display='none';
-    $('app-shell').style.display='grid';
-    $('app-shell').classList.add('show');
-    render();
-  } else {
-    $('app-shell').style.display='none';
-    $('app-shell').classList.remove('show');
-    showLogin();
-  }
-});
-
-// ── NAVIGATION ────────────────────────────────────────────────
+// ── NAVIGATION ──────────────────────────────────────────────────
 let currentPage='dashboard';
 function nav(page){
-  // Role guards
-  if(page==='accounting'&&!isAdmin()){alert('Admin access only.');return;}
-  if(page==='marketing'&&!isAdmin()){alert('Admin access only.');return;}
-  if(page==='team'&&!isAdmin()){alert('Admin access only.');return;}
-  if((page==='invoices')&&!isOffice()){alert('Office/Admin access only.');return;}
   currentPage=page;
   document.querySelectorAll('.nav-item').forEach(el=>{
     el.classList.toggle('active',el.getAttribute('onclick')&&el.getAttribute('onclick').includes("'"+page+"'"));
   });
-  closeMobileNav();render();
+  closeMobileNav();
+  render();
 }
-function toggleMobileNav(){$('sidebar').classList.toggle('mobile-open');$('mob-overlay').classList.toggle('active');}
-function closeMobileNav(){$('sidebar').classList.remove('mobile-open');$('mob-overlay').classList.remove('active');}
 
-// ── PAGES ─────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════
+// PAGES
+// ══════════════════════════════════════════════════════════════════
+
 function pageDashboard(){
   const pipeline=DB.leads.filter(l=>l.status!=='Lost').reduce((s,l)=>s+(l.estimate||0),0);
   const collected=DB.invoices.filter(i=>i.status==='Paid').reduce((s,i)=>s+(i.amount||0),0);
   const overdue=DB.leads.filter(l=>isOverdue(l.followup)&&l.status!=='Won'&&l.status!=='Lost').length;
+  const proposals=DB.leads.filter(l=>l.status==='Proposal Sent').length;
+  const deposits=DB.leads.filter(l=>l.status==='Deposit Received').length;
+  const won=DB.leads.filter(l=>l.status==='Won').length;
+  const lost=DB.leads.filter(l=>l.status==='Lost').length;
+  const winRate=(won+lost)>0?Math.round(won/(won+lost)*100):0;
+  const reviews=DB.clients.filter(c=>c.review).length;
+  const adSpend=DB.marketing.reduce((s,m)=>s+(m.spend||0),0);
+  const totalLeads=DB.marketing.reduce((s,m)=>s+(m.leads||0),0);
+
   const stages=['New Lead','Estimate Scheduled','Proposal Sent','Deposit Received','In Progress'];
   const pipeHTML=stages.map(s=>{
     const c=DB.leads.filter(l=>l.status===s).length;
     const v=DB.leads.filter(l=>l.status===s).reduce((sum,l)=>sum+(l.estimate||0),0);
     return `<div class="pipe-col"><div class="pipe-col-title">${s}</div><div class="pipe-count">${c}</div><div class="pipe-val">${fmt$(v)}</div></div>`;
   }).join('');
-  const won=DB.leads.filter(l=>l.status==='Won').length;
-  const lost=DB.leads.filter(l=>l.status==='Lost').length;
-  const winRate=(won+lost)>0?Math.round(won/(won+lost)*100):0;
-  const recentRows=DB.leads.slice(-5).reverse().map(l=>`<tr>
-    <td><div class="td-name">${l.name}</div><div class="td-sub">${l.source}</div></td>
-    <td>${l.service}</td><td>${statusBadge(l.status)}</td>
-    <td style="font-family:var(--mono)">${fmt$(l.estimate)}</td>
-    <td style="color:${isOverdue(l.followup)&&l.status!=='Won'&&l.status!=='Lost'?'var(--red-text)':'var(--text3)'};font-size:11px">${l.followup||'—'}</td>
-  </tr>`).join('');
+
+  const recentRows=DB.leads.slice(-5).reverse().map(l=>`
+    <tr>
+      <td><div class="td-name">${l.name}</div><div class="td-sub">${l.source}</div></td>
+      <td>${l.service}</td>
+      <td>${statusBadge(l.status)}</td>
+      <td style="font-family:var(--mono)">${fmt$(l.estimate)}</td>
+      <td style="color:${isOverdue(l.followup)&&l.status!=='Won'&&l.status!=='Lost'?'var(--red-text)':'var(--text3)'};font-size:11px">${l.followup||'—'}</td>
+    </tr>`).join('');
+
   return `
     <div class="page-header">
-      <div class="page-header-left"><div class="page-title">Dashboard</div><div class="page-sub">${new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}</div></div>
+      <div class="page-header-left">
+        <div class="page-title">Dashboard</div>
+        <div class="page-sub">${new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}</div>
+      </div>
       <div class="page-actions">
         <button class="btn btn-primary btn-sm" onclick="nav('leads')"><i class="ti ti-plus"></i> Add lead</button>
-        ${isAdmin()?`<button class="btn btn-sm" onclick="nav('team')"><i class="ti ti-shield"></i> Team</button>`:''}
+        <button class="btn btn-sm" onclick="settingsModal()"><i class="ti ti-settings"></i></button>
       </div>
     </div>
-    <div class="notice notice-gray">"What gets measured gets managed." — Michael Gerber · Review every Sunday morning.</div>
+    <div class="notice notice-gray">"What gets measured gets managed. What gets managed grows." — Michael Gerber · Review every Sunday morning.</div>
     <div class="metrics">
       <div class="metric green"><div class="metric-label">Pipeline</div><div class="metric-value">${fmt$(pipeline)}</div></div>
       <div class="metric green"><div class="metric-label">Collected</div><div class="metric-value">${fmt$(collected)}</div></div>
       <div class="metric"><div class="metric-label">Active leads</div><div class="metric-value">${DB.leads.filter(l=>l.status!=='Won'&&l.status!=='Lost').length}</div></div>
-      <div class="metric blue"><div class="metric-label">Proposals out</div><div class="metric-value">${DB.leads.filter(l=>l.status==='Proposal Sent').length}</div></div>
+      <div class="metric blue"><div class="metric-label">Proposals out</div><div class="metric-value">${proposals}</div></div>
+      <div class="metric gold"><div class="metric-label">Deposits</div><div class="metric-value">${deposits}</div></div>
       <div class="metric ${overdue>0?'red':''}"><div class="metric-label">Overdue</div><div class="metric-value">${overdue}</div></div>
       <div class="metric"><div class="metric-label">Win rate</div><div class="metric-value">${winRate}%</div></div>
-      <div class="metric green"><div class="metric-label">Reviews</div><div class="metric-value">${DB.clients.filter(c=>c.review).length}</div></div>
+      <div class="metric green"><div class="metric-label">Reviews</div><div class="metric-value">${reviews}</div></div>
       <div class="metric"><div class="metric-label">Clients</div><div class="metric-value">${DB.clients.length}</div></div>
+      <div class="metric"><div class="metric-label">Ad spend</div><div class="metric-value">${fmt$(adSpend)}</div></div>
     </div>
     <div style="font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Pipeline stages</div>
     <div class="pipeline">${pipeHTML}</div>
-    <div class="card"><div class="card-header"><h3>Recent leads</h3><button class="btn btn-sm" onclick="nav('leads')">View all</button></div>
-    <div class="table-wrap"><table><thead><tr><th>Client</th><th>Service</th><th>Status</th><th>Value</th><th>Follow-up</th></tr></thead>
-    <tbody>${recentRows}</tbody></table></div></div>`;
-}
-
-function pageTeam(){
-  if(!isAdmin()) return `<div class="notice notice-red">Admin access required.</div>`;
-  return `
-    <div class="page-header"><div class="page-header-left"><div class="page-title">Team &amp; Access</div><div class="page-sub">Manage employee accounts and roles</div></div></div>
-    <div class="notice notice-gold"><strong>How to add an employee:</strong> Go to your Supabase dashboard → Authentication → Users → Invite user. Enter their email. They'll get a link to set their password. Then set their role in the user_profiles table.</div>
-    <div class="notice notice-blue"><strong>Roles:</strong> <strong>Admin</strong> — full access including financials and team management. <strong>Office</strong> — leads, CRM, estimates, invoices. No delete. <strong>Field</strong> — assigned projects and field checklists only. No delete.</div>
-    <div class="card"><div class="card-header"><h3>Current user</h3></div>
-    <div style="padding:16px">
-      <div style="display:flex;align-items:center;gap:12px">
-        <div style="width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#000">${(currentUser?.email||'?').charAt(0).toUpperCase()}</div>
-        <div>
-          <div style="font-size:13px;font-weight:500">${currentUser?.email||'—'}</div>
-          <div style="font-size:11px;color:var(--text3);margin-top:2px">Role: <span class="badge badge-${currentRole==='admin'?'green':currentRole==='office'?'gold':'blue'}">${currentRole}</span></div>
-        </div>
-      </div>
-    </div></div>
-    <div class="card"><div class="card-header"><h3>Add employees via Supabase</h3></div>
-    <div style="padding:16px;display:flex;flex-direction:column;gap:10px">
-      <div style="font-size:12px;color:var(--text2);line-height:1.7">To add a team member:<br>
-        1. Go to <strong>supabase.com</strong> → your GTS-CRM project<br>
-        2. Click <strong>Authentication</strong> in the left sidebar<br>
-        3. Click <strong>Users</strong> → <strong>Invite user</strong><br>
-        4. Enter their email address — they get a setup link<br>
-        5. In <strong>Table Editor</strong> → <strong>user_profiles</strong> → set their role to <code>field</code> or <code>office</code><br>
-        6. To remove access: delete their account from Authentication → Users
-      </div>
-      <a href="https://supabase.com/dashboard" target="_blank" class="btn btn-sm" style="width:fit-content"><i class="ti ti-external-link"></i> Open Supabase Dashboard</a>
-    </div></div>`;
+    <div class="card">
+      <div class="card-header"><h3>Recent leads</h3><button class="btn btn-sm" onclick="nav('leads')">View all</button></div>
+      <div class="table-wrap"><table><thead><tr><th>Client</th><th>Service</th><th>Status</th><th>Value</th><th>Follow-up</th></tr></thead>
+      <tbody>${recentRows}</tbody></table></div>
+    </div>`;
 }
 
 function pageMarketing(){
-  if(!isAdmin()) return `<div class="notice notice-red">Admin access required.</div>`;
   const rows=DB.marketing.map(m=>{
     const cpl=m.leads>0&&m.spend>0?fmt$(m.spend/m.leads):'—';
     const roi=m.spend>0?Math.round(m.revenue/m.spend)+'x':m.revenue>0?'∞':'—';
-    return `<tr><td>${m.channel}</td><td style="font-size:11px;color:var(--text3)">${m.month}</td>
-    <td style="font-family:var(--mono)">${fmt$(m.spend)}</td>
-    <td style="font-family:var(--mono)">${m.leads}</td><td style="font-family:var(--mono)">${m.jobs}</td>
-    <td style="font-family:var(--mono)">${fmt$(m.revenue)}</td><td>${cpl}</td>
-    <td><span class="badge badge-${roi.includes('x')&&parseInt(roi)>3?'green':'gray'}">${roi}</span></td>
-    <td><button class="btn btn-icon btn-sm" onclick="delItem('marketing',${m.id})"><i class="ti ti-trash"></i></button></td></tr>`;
+    return `<tr>
+      <td>${m.channel}</td><td style="font-size:11px;color:var(--text3)">${m.month}</td>
+      <td style="font-family:var(--mono)">${fmt$(m.spend)}</td>
+      <td style="font-family:var(--mono)">${m.leads}</td>
+      <td style="font-family:var(--mono)">${m.jobs}</td>
+      <td style="font-family:var(--mono)">${fmt$(m.revenue)}</td>
+      <td>${cpl}</td><td><span class="badge badge-${roi==='∞'||roi.includes('x')&&parseInt(roi)>5?'green':'gray'}">${roi}</span></td>
+      <td><button class="btn btn-icon btn-sm" onclick="delItem('marketing',${m.id})"><i class="ti ti-trash"></i></button></td>
+    </tr>`;
   }).join('');
   const ts=DB.marketing.reduce((s,m)=>s+(m.spend||0),0);
   const tl=DB.marketing.reduce((s,m)=>s+(m.leads||0),0);
   const tr2=DB.marketing.reduce((s,m)=>s+(m.revenue||0),0);
   return `
-    <div class="page-header"><div class="page-header-left"><div class="page-title">Marketing &amp; Ad Tracker</div></div>
-    <div class="page-actions"><button class="btn btn-primary btn-sm" onclick="modalMarketing()"><i class="ti ti-plus"></i> Log campaign</button></div></div>
+    <div class="page-header">
+      <div class="page-header-left"><div class="page-title">Marketing &amp; Ad Tracker</div><div class="page-sub">Track every dollar spent and every lead generated per channel</div></div>
+      <div class="page-actions"><button class="btn btn-primary btn-sm" onclick="modalMarketing()"><i class="ti ti-plus"></i> Log campaign</button></div>
+    </div>
     <div class="metrics">
-      <div class="metric"><div class="metric-label">Total spend</div><div class="metric-value">${fmt$(ts)}</div></div>
+      <div class="metric"><div class="metric-label">Total ad spend</div><div class="metric-value">${fmt$(ts)}</div></div>
       <div class="metric"><div class="metric-label">Total leads</div><div class="metric-value">${tl}</div></div>
       <div class="metric green"><div class="metric-label">Revenue tracked</div><div class="metric-value">${fmt$(tr2)}</div></div>
       <div class="metric"><div class="metric-label">Blended CPL</div><div class="metric-value">${tl>0&&ts>0?fmt$(ts/tl):'—'}</div></div>
     </div>
-    <div class="card"><div class="card-header"><h3>Campaign log</h3></div>
-    <div class="table-wrap"><table><thead><tr><th>Channel</th><th>Month</th><th>Spend</th><th>Leads</th><th>Jobs</th><th>Revenue</th><th>CPL</th><th>ROI</th><th></th></tr></thead>
-    <tbody>${rows||'<tr><td colspan="9"><div class="empty"><p>No campaigns yet</p></div></td></tr>'}</tbody></table></div></div>`;
+    <div class="card">
+      <div class="card-header"><h3>Campaign log</h3></div>
+      <div class="table-wrap"><table><thead><tr><th>Channel</th><th>Month</th><th>Spend</th><th>Leads</th><th>Jobs</th><th>Revenue</th><th>CPL</th><th>ROI</th><th></th></tr></thead>
+      <tbody>${rows||'<tr><td colspan="9"><div class="empty"><i class="ti ti-speakerphone"></i><p>No campaigns yet</p></div></td></tr>'}</tbody></table></div>
+    </div>`;
 }
 
 function pageLeads(){
-  const canDelete=isAdmin();
-  const leadRows=DB.leads.map(l=>`<tr>
-    <td><div class="td-name">${l.name}</div><div class="td-sub">${l.phone}</div></td>
-    <td><div style="font-size:11px">${l.source}</div></td>
-    <td>${l.service}</td><td>${statusBadge(l.status)}</td>
-    <td style="font-family:var(--mono)">${fmt$(l.estimate)}</td>
-    <td>${prioBadge(l.priority)}</td>
-    <td style="font-size:11px;color:${isOverdue(l.followup)&&l.status!=='Won'&&l.status!=='Lost'?'var(--red-text)':'var(--text3)'}">${l.followup||'—'}</td>
-    <td style="white-space:nowrap">
-      <button class="btn btn-icon btn-sm" onclick="modalLead(${l.id})"><i class="ti ti-edit"></i></button>
-      <button class="btn btn-icon btn-sm" onclick="convertLead(${l.id})"><i class="ti ti-user-check"></i></button>
-      ${canDelete?`<button class="btn btn-icon btn-sm" onclick="delItem('leads',${l.id})"><i class="ti ti-trash"></i></button>`:''}
-    </td></tr>`).join('');
-  return `
-    <div class="page-header"><div class="page-header-left"><div class="page-title">Leads &amp; CRM</div></div>
-    <div class="page-actions"><button class="btn btn-primary btn-sm" onclick="modalLead(null)"><i class="ti ti-plus"></i> Add lead</button></div></div>
-    <div class="metrics">
-      <div class="metric"><div class="metric-label">Active leads</div><div class="metric-value">${DB.leads.filter(l=>l.status!=='Won'&&l.status!=='Lost').length}</div></div>
-      <div class="metric blue"><div class="metric-label">Proposals out</div><div class="metric-value">${DB.leads.filter(l=>l.status==='Proposal Sent').length}</div></div>
-      <div class="metric gold"><div class="metric-label">Pipeline</div><div class="metric-value">${fmt$(DB.leads.filter(l=>l.status!=='Lost').reduce((s,l)=>s+(l.estimate||0),0))}</div></div>
-      <div class="metric ${DB.leads.filter(l=>isOverdue(l.followup)&&l.status!=='Won'&&l.status!=='Lost').length>0?'red':''}"><div class="metric-label">Overdue</div><div class="metric-value">${DB.leads.filter(l=>isOverdue(l.followup)&&l.status!=='Won'&&l.status!=='Lost').length}</div></div>
-    </div>
-    <div class="card"><div class="card-header"><h3>Active leads</h3></div>
-    <div class="table-wrap"><table><thead><tr><th>Contact</th><th>Source</th><th>Service</th><th>Status</th><th>Estimate</th><th>Priority</th><th>Follow-up</th><th>Actions</th></tr></thead>
-    <tbody>${leadRows||'<tr><td colspan="8"><div class="empty"><i class="ti ti-user-plus"></i><p>No leads yet</p></div></td></tr>'}</tbody></table></div></div>
-    <div class="card"><div class="card-header"><h3>Past clients</h3><button class="btn btn-sm" onclick="modalClient()"><i class="ti ti-plus"></i> Add</button></div>
-    <div class="table-wrap"><table><thead><tr><th>Client</th><th>Service</th><th>Job date</th><th>Amount</th><th>Paid</th><th>Review</th><th>Rating</th><th>Refs</th><th>Follow-up</th></tr></thead>
-    <tbody>${DB.clients.map(c=>`<tr>
+  const leadRows=DB.leads.map(l=>`
+    <tr>
+      <td><div class="td-name">${l.name}</div><div class="td-sub">${l.phone}</div></td>
+      <td><div style="font-size:11px">${l.source}</div></td>
+      <td>${l.service}</td>
+      <td>${statusBadge(l.status)}</td>
+      <td style="font-family:var(--mono)">${fmt$(l.estimate)}</td>
+      <td>${prioBadge(l.priority)}</td>
+      <td style="font-size:11px;color:${isOverdue(l.followup)&&l.status!=='Won'&&l.status!=='Lost'?'var(--red-text)':'var(--text3)'}">${l.followup||'—'}</td>
+      <td style="white-space:nowrap">
+        <button class="btn btn-icon btn-sm" onclick="modalLead(${l.id})" title="Edit"><i class="ti ti-edit"></i></button>
+        <button class="btn btn-icon btn-sm" onclick="convertLead(${l.id})" title="Convert to client"><i class="ti ti-user-check"></i></button>
+        <button class="btn btn-icon btn-sm" onclick="delItem('leads',${l.id})" title="Delete"><i class="ti ti-trash"></i></button>
+      </td>
+    </tr>`).join('');
+  const clientRows=DB.clients.map(c=>`
+    <tr>
       <td><div class="td-name">${c.name}</div><div class="td-sub">${c.phone}</div></td>
-      <td>${c.service}</td><td style="font-size:11px;color:var(--text3)">${c.jobDate}</td>
+      <td>${c.service}</td>
+      <td style="font-size:11px;color:var(--text3)">${c.jobDate}</td>
       <td style="font-family:var(--mono)">${fmt$(c.amount)}</td>
       <td>${c.paid?'<span class="badge badge-green">Yes</span>':'<span class="badge badge-red">No</span>'}</td>
       <td>${c.review?'<span class="badge badge-green">Yes</span>':'<span class="badge badge-red">Needed</span>'}</td>
-      <td>${c.rating>0?'★'.repeat(c.rating):'—'}</td>
+      <td style="font-size:12px">${c.rating>0?'★'.repeat(c.rating)+'☆'.repeat(5-c.rating):'—'}</td>
       <td style="font-family:var(--mono)">${c.refs}</td>
       <td style="font-size:11px;color:${isOverdue(c.nextFollowup)?'var(--red-text)':'var(--text3)'}">${c.nextFollowup||'—'}</td>
-    </tr>`).join('')||'<tr><td colspan="9"><div class="empty"><p>No clients yet</p></div></td></tr>'}</tbody></table></div></div>`;
+    </tr>`).join('');
+  return `
+    <div class="page-header">
+      <div class="page-header-left"><div class="page-title">Leads &amp; CRM</div><div class="page-sub">Every lead tracked from first contact to closed job</div></div>
+      <div class="page-actions"><button class="btn btn-primary btn-sm" onclick="modalLead(null)"><i class="ti ti-plus"></i> Add lead</button></div>
+    </div>
+    <div class="metrics">
+      <div class="metric"><div class="metric-label">Active leads</div><div class="metric-value">${DB.leads.filter(l=>l.status!=='Won'&&l.status!=='Lost').length}</div></div>
+      <div class="metric blue"><div class="metric-label">Proposals out</div><div class="metric-value">${DB.leads.filter(l=>l.status==='Proposal Sent').length}</div></div>
+      <div class="metric gold"><div class="metric-label">Pipeline value</div><div class="metric-value">${fmt$(DB.leads.filter(l=>l.status!=='Lost').reduce((s,l)=>s+(l.estimate||0),0))}</div></div>
+      <div class="metric ${DB.leads.filter(l=>isOverdue(l.followup)&&l.status!=='Won'&&l.status!=='Lost').length>0?'red':''}"><div class="metric-label">Overdue</div><div class="metric-value">${DB.leads.filter(l=>isOverdue(l.followup)&&l.status!=='Won'&&l.status!=='Lost').length}</div></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>Active leads</h3></div>
+      <div class="table-wrap"><table><thead><tr><th>Contact</th><th>Source</th><th>Service</th><th>Status</th><th>Estimate</th><th>Priority</th><th>Follow-up</th><th>Actions</th></tr></thead>
+      <tbody>${leadRows||'<tr><td colspan="8"><div class="empty"><i class="ti ti-user-plus"></i><p>No leads yet. Add your first one above.</p></div></td></tr>'}</tbody></table></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>Past clients</h3><button class="btn btn-sm" onclick="modalClient()"><i class="ti ti-plus"></i> Add client</button></div>
+      <div class="table-wrap"><table><thead><tr><th>Client</th><th>Service</th><th>Job date</th><th>Amount</th><th>Paid</th><th>Review</th><th>Rating</th><th>Refs</th><th>Next follow-up</th></tr></thead>
+      <tbody>${clientRows||'<tr><td colspan="9"><div class="empty"><p>No past clients yet</p></div></td></tr>'}</tbody></table></div>
+    </div>`;
 }
 
 function pageEstimates(){
-  const canDelete=isAdmin();
   const rows=DB.estimates.map(e=>{
     const m=e.amount>0?Math.round((e.amount-e.materials-e.labor)/e.amount*100):0;
     return `<tr>
       <td style="font-family:var(--mono);font-size:11px;color:var(--text3)">${e.id}</td>
-      <td class="td-name">${e.client}</td><td>${e.service}</td>
+      <td style="font-size:11px;color:var(--text3)">${e.date}</td>
+      <td class="td-name">${e.client}</td>
+      <td>${e.service}</td>
       <td style="font-family:var(--mono)">${fmt$(e.materials)}</td>
       <td style="font-family:var(--mono)">${fmt$(e.labor)}</td>
       <td style="font-family:var(--mono)">${fmt$(e.overhead)}</td>
       <td style="font-family:var(--mono);font-weight:600">${fmt$(e.amount)}</td>
       <td><span class="badge badge-${m>=35?'green':m>=25?'gold':'red'}">${m}%</span></td>
       <td>${statusBadge(e.status)}</td>
-      ${canDelete?`<td><button class="btn btn-icon btn-sm" onclick="delItem('estimates','${e.id}')"><i class="ti ti-trash"></i></button></td>`:'<td></td>'}
+      <td><button class="btn btn-icon btn-sm" onclick="delItem('estimates','${e.id}')"><i class="ti ti-trash"></i></button></td>
     </tr>`;
   }).join('');
   const avg=DB.estimates.length?Math.round(DB.estimates.reduce((s,e)=>s+(e.amount>0?(e.amount-e.materials-e.labor)/e.amount*100:0),0)/DB.estimates.length):0;
   return `
-    <div class="page-header"><div class="page-header-left"><div class="page-title">Estimates &amp; Bids</div><div class="page-sub">Target 35–45% gross margin — always present 3 tiers</div></div>
-    <div class="page-actions"><button class="btn btn-primary btn-sm" onclick="modalEstimate()"><i class="ti ti-plus"></i> New estimate</button></div></div>
-    <div class="notice notice-gold"><strong>Pricing formula:</strong> Materials × 1.2 + (Hours × $65/hr) + 15% overhead. Target 35–45% margin. Good / Better / Best.</div>
+    <div class="page-header">
+      <div class="page-header-left"><div class="page-title">Estimates &amp; Bids</div><div class="page-sub">Price every job to 35–45% gross margin minimum — always present 3 tiers</div></div>
+      <div class="page-actions"><button class="btn btn-primary btn-sm" onclick="modalEstimate()"><i class="ti ti-plus"></i> New estimate</button></div>
+    </div>
+    <div class="notice notice-gold"><strong>Gerber pricing formula:</strong> Materials × 1.2 + (Hours × $65/hr) + 15% overhead = base cost. Target 35–45% gross margin. Good / Better / Best — three options, every time.</div>
     <div class="metrics">
       <div class="metric"><div class="metric-label">Total estimates</div><div class="metric-value">${DB.estimates.length}</div></div>
       <div class="metric ${avg>=35?'green':avg>=25?'gold':'red'}"><div class="metric-label">Avg margin</div><div class="metric-value">${avg}%</div></div>
+      <div class="metric blue"><div class="metric-label">Sent</div><div class="metric-value">${DB.estimates.filter(e=>e.status==='Sent'||e.status==='Proposal Sent').length}</div></div>
       <div class="metric gold"><div class="metric-label">Total estimated</div><div class="metric-value">${fmt$(DB.estimates.reduce((s,e)=>s+(e.amount||0),0))}</div></div>
     </div>
-    <div class="card"><div class="card-header"><h3>All estimates</h3></div>
-    <div class="table-wrap"><table><thead><tr><th>ID</th><th>Client</th><th>Service</th><th>Materials</th><th>Labor</th><th>Overhead</th><th>Total</th><th>Margin</th><th>Status</th><th></th></tr></thead>
-    <tbody>${rows||'<tr><td colspan="10"><div class="empty"><i class="ti ti-file-dollar"></i><p>No estimates yet</p></div></td></tr>'}</tbody></table></div></div>`;
+    <div class="card">
+      <div class="card-header"><h3>All estimates</h3></div>
+      <div class="table-wrap"><table><thead><tr><th>ID</th><th>Date</th><th>Client</th><th>Service</th><th>Materials</th><th>Labor</th><th>Overhead</th><th>Total</th><th>Margin</th><th>Status</th><th></th></tr></thead>
+      <tbody>${rows||'<tr><td colspan="11"><div class="empty"><i class="ti ti-file-dollar"></i><p>No estimates yet</p></div></td></tr>'}</tbody></table></div>
+    </div>`;
 }
 
 function pageProjects(){
-  const canDelete=isAdmin();
-  const rows=DB.projects.map(p=>`<tr>
-    <td style="font-family:var(--mono);font-size:11px;color:var(--text3)">${p.id}</td>
-    <td class="td-name">${p.client}</td><td>${p.service}</td>
-    <td style="font-size:11px;color:var(--text3)">${p.startDate}</td>
-    <td style="font-size:11px;color:var(--text3)">${p.endDate}</td>
-    <td>${statusBadge(p.status)}</td>
-    <td style="font-family:var(--mono)">${fmt$(p.amount)}</td>
-    <td><span class="badge badge-green">${fmt$(p.deposit)}</span></td>
-    <td><span class="badge badge-${p.balance>0?'red':'green'}">${fmt$(p.balance)}</span></td>
-    ${canDelete?`<td><button class="btn btn-icon btn-sm" onclick="delItem('projects','${p.id}')"><i class="ti ti-trash"></i></button></td>`:'<td></td>'}
-  </tr>`).join('');
+  const rows=DB.projects.map(p=>`
+    <tr>
+      <td style="font-family:var(--mono);font-size:11px;color:var(--text3)">${p.id}</td>
+      <td class="td-name">${p.client}</td>
+      <td>${p.service}</td>
+      <td style="font-size:11px;color:var(--text3)">${p.startDate}</td>
+      <td style="font-size:11px;color:var(--text3)">${p.endDate}</td>
+      <td>${statusBadge(p.status)}</td>
+      <td style="font-family:var(--mono)">${fmt$(p.amount)}</td>
+      <td><span class="badge badge-green">${fmt$(p.deposit)}</span></td>
+      <td><span class="badge badge-${p.balance>0?'red':'green'}">${fmt$(p.balance)}</span></td>
+      <td><button class="btn btn-icon btn-sm" onclick="delItem('projects','${p.id}')"><i class="ti ti-trash"></i></button></td>
+    </tr>`).join('');
   return `
-    <div class="page-header"><div class="page-header-left"><div class="page-title">Projects</div></div>
-    <div class="page-actions"><button class="btn btn-primary btn-sm" onclick="modalProject()"><i class="ti ti-plus"></i> New project</button></div></div>
+    <div class="page-header">
+      <div class="page-header-left"><div class="page-title">Projects</div><div class="page-sub">Active and completed jobs — every deposit and balance tracked</div></div>
+      <div class="page-actions"><button class="btn btn-primary btn-sm" onclick="modalProject()"><i class="ti ti-plus"></i> New project</button></div>
+    </div>
     <div class="metrics">
       <div class="metric blue"><div class="metric-label">Active</div><div class="metric-value">${DB.projects.filter(p=>p.status!=='Complete').length}</div></div>
       <div class="metric green"><div class="metric-label">Complete</div><div class="metric-value">${DB.projects.filter(p=>p.status==='Complete').length}</div></div>
       <div class="metric gold"><div class="metric-label">Balance due</div><div class="metric-value">${fmt$(DB.projects.reduce((s,p)=>s+(p.balance||0),0))}</div></div>
+      <div class="metric green"><div class="metric-label">Revenue booked</div><div class="metric-value">${fmt$(DB.projects.reduce((s,p)=>s+(p.amount||0),0))}</div></div>
     </div>
-    <div class="card"><div class="card-header"><h3>All projects</h3></div>
-    <div class="table-wrap"><table><thead><tr><th>Job ID</th><th>Client</th><th>Service</th><th>Start</th><th>End</th><th>Status</th><th>Total</th><th>Deposit</th><th>Balance</th><th></th></tr></thead>
-    <tbody>${rows||'<tr><td colspan="10"><div class="empty"><i class="ti ti-hammer"></i><p>No projects yet</p></div></td></tr>'}</tbody></table></div></div>`;
+    <div class="card">
+      <div class="card-header"><h3>All projects</h3></div>
+      <div class="table-wrap"><table><thead><tr><th>Job ID</th><th>Client</th><th>Service</th><th>Start</th><th>End</th><th>Status</th><th>Total</th><th>Deposit</th><th>Balance</th><th></th></tr></thead>
+      <tbody>${rows||'<tr><td colspan="10"><div class="empty"><i class="ti ti-hammer"></i><p>No projects yet</p></div></td></tr>'}</tbody></table></div>
+    </div>`;
 }
 
 function pageVendors(){
-  const canDelete=isAdmin();
-  const poRows=DB.pos.map(po=>`<tr>
-    <td style="font-family:var(--mono);font-size:11px">${po.id}</td>
-    <td class="td-name">${po.vendor}</td>
-    <td style="font-size:11px;color:var(--text3)">${po.job}</td>
-    <td style="font-size:11px;max-width:140px">${po.items}</td>
-    <td style="font-family:var(--mono)">${fmt$(po.amount)}</td>
-    <td>${statusBadge(po.status)}</td>
-    <td style="font-size:11px;color:var(--text3)">${po.eta}</td>
-    <td>${po.received?'<span class="badge badge-green">Received</span>':'<span class="badge badge-gold">Pending</span>'}</td>
-    ${canDelete?`<td><button class="btn btn-icon btn-sm" onclick="delItem('pos','${po.id}')"><i class="ti ti-trash"></i></button></td>`:'<td></td>'}
-  </tr>`).join('');
+  const poRows=DB.pos.map(po=>`
+    <tr>
+      <td style="font-family:var(--mono);font-size:11px;color:var(--text3)">${po.id}</td>
+      <td class="td-name">${po.vendor}</td>
+      <td style="font-size:11px;color:var(--text3)">${po.job}</td>
+      <td style="font-size:11px;color:var(--text3)">${po.date}</td>
+      <td style="max-width:160px;font-size:11px">${po.items}</td>
+      <td style="font-family:var(--mono)">${fmt$(po.amount)}</td>
+      <td>${statusBadge(po.status)}</td>
+      <td style="font-size:11px;color:var(--text3)">${po.eta}</td>
+      <td>${po.received?'<span class="badge badge-green">Received</span>':'<span class="badge badge-gold">Pending</span>'}</td>
+      <td><button class="btn btn-icon btn-sm" onclick="delItem('pos','${po.id}')"><i class="ti ti-trash"></i></button></td>
+    </tr>`).join('');
+  const vendorRows=DB.vendors.map(v=>`
+    <tr>
+      <td class="td-name">${v.name}</td>
+      <td>${v.category}</td>
+      <td style="font-size:11px;color:var(--text3)">${v.contact}</td>
+      <td style="font-size:11px;color:var(--text3)">${v.phone}</td>
+      <td><span class="badge badge-gray">${v.terms}</span></td>
+      <td><button class="btn btn-icon btn-sm" onclick="delItem('vendors',${v.id})"><i class="ti ti-trash"></i></button></td>
+    </tr>`).join('');
   return `
-    <div class="page-header"><div class="page-header-left"><div class="page-title">Vendors &amp; Purchase Orders</div></div>
-    <div class="page-actions">
-      <button class="btn btn-primary btn-sm" onclick="modalPO()"><i class="ti ti-plus"></i> New PO</button>
-      ${isOffice()?`<button class="btn btn-sm" onclick="modalVendor()"><i class="ti ti-building-store"></i> Add vendor</button>`:''}
-    </div></div>
+    <div class="page-header">
+      <div class="page-header-left"><div class="page-title">Vendors &amp; Purchase Orders</div><div class="page-sub">Track every vendor account, PO, and material delivery</div></div>
+      <div class="page-actions">
+        <button class="btn btn-primary btn-sm" onclick="modalPO()"><i class="ti ti-plus"></i> New PO</button>
+        <button class="btn btn-sm" onclick="modalVendor()"><i class="ti ti-building-store"></i> Add vendor</button>
+      </div>
+    </div>
     <div class="metrics">
       <div class="metric"><div class="metric-label">Vendors</div><div class="metric-value">${DB.vendors.length}</div></div>
       <div class="metric gold"><div class="metric-label">Open POs</div><div class="metric-value">${DB.pos.filter(p=>!p.received).length}</div></div>
       <div class="metric"><div class="metric-label">Total PO value</div><div class="metric-value">${fmt$(DB.pos.reduce((s,p)=>s+(p.amount||0),0))}</div></div>
+      <div class="metric green"><div class="metric-label">Received</div><div class="metric-value">${DB.pos.filter(p=>p.received).length}</div></div>
     </div>
-    <div class="card"><div class="card-header"><h3>Purchase orders</h3></div>
-    <div class="table-wrap"><table><thead><tr><th>PO #</th><th>Vendor</th><th>Job</th><th>Items</th><th>Amount</th><th>Status</th><th>ETA</th><th>Received</th><th></th></tr></thead>
-    <tbody>${poRows||'<tr><td colspan="9"><div class="empty"><p>No POs yet</p></div></td></tr>'}</tbody></table></div></div>`;
+    <div class="card">
+      <div class="card-header"><h3>Purchase orders</h3></div>
+      <div class="table-wrap"><table><thead><tr><th>PO #</th><th>Vendor</th><th>Job</th><th>Date</th><th>Items</th><th>Amount</th><th>Status</th><th>ETA</th><th>Received</th><th></th></tr></thead>
+      <tbody>${poRows||'<tr><td colspan="10"><div class="empty"><p>No POs yet</p></div></td></tr>'}</tbody></table></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>Vendor accounts</h3></div>
+      <table><thead><tr><th>Vendor</th><th>Category</th><th>Contact</th><th>Phone</th><th>Terms</th><th></th></tr></thead>
+      <tbody>${vendorRows||'<tr><td colspan="6"><div class="empty"><p>No vendors yet</p></div></td></tr>'}</tbody></table>
+    </div>`;
 }
 
 function pageField(){
   const cls=[
-    {title:'Job start',icon:'ti-flag',items:['Job packet delivered to crew','Before photos taken','Materials confirmed on site','Quality Standard card reviewed']},
-    {title:'Daily wrap',icon:'ti-sun',items:['Progress photos taken','Client text update sent','Site cleaned and secured','Tomorrow\'s materials identified']},
-    {title:'Job completion',icon:'ti-circle-check',items:['After photos taken','Site cleaned — leave it better','Client walkthrough done','Verbal sign-off received','Final invoice sent','Final payment collected','Google review link texted','Referral question asked']},
-    {title:'Change order',icon:'ti-file-plus',items:['Scope change documented','New price agreed in writing','Change order signed','Additional deposit collected']},
+    {title:'Job start checklist',icon:'ti-flag',items:['Job packet printed and delivered to crew','Before photos taken and uploaded to job record','Client contact info confirmed with crew','Materials delivered or confirmed on site','Quality Standard card reviewed with all crew']},
+    {title:'Daily wrap checklist',icon:'ti-sun',items:['Progress photos taken and uploaded','Client text update sent — one sentence with photo','Site cleaned and secured for overnight','Any issues or surprises logged in notes','Materials needed tomorrow identified and ordered']},
+    {title:'Job completion checklist',icon:'ti-circle-check',items:['After photos taken — every room and area','Site cleaned — leave it better than you found it','Client walkthrough completed — walk every inch','Verbal sign-off received from client','Final invoice sent from phone before leaving','Final 50% payment collected on site','Google review link texted immediately','Referral question asked by name','Job status updated to Complete in app']},
+    {title:'Change order checklist',icon:'ti-file-plus',items:['Scope change documented in writing','New price agreed verbatim by client','Change order signed before any work changes','Additional deposit collected and logged','Original contract updated in app']},
   ];
   return `
-    <div class="page-header"><div class="page-header-left"><div class="page-title">Field Checklists</div><div class="page-sub">Every job runs the same way, every time</div></div></div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px">
-    ${cls.map(cl=>`<div class="card" style="margin:0">
-      <div class="card-header"><h3><i class="ti ${cl.icon}" style="margin-right:6px"></i>${cl.title}</h3></div>
-      <div style="padding:12px">${cl.items.map((item,i)=>`
-        <div class="checklist-item" ${i===cl.items.length-1?'style="border:none"':''}>
-          <input type="checkbox"><span class="checklist-text">${item}</span>
-        </div>`).join('')}
-      </div></div>`).join('')}
+    <div class="page-header">
+      <div class="page-header-left"><div class="page-title">Field Checklists</div><div class="page-sub">Gerber's ops manual — every job runs the same way, every time</div></div>
+    </div>
+    <div class="notice notice-green"><strong>Gerber's rule:</strong> The checklist IS the system. Quality that doesn't depend on you being present is quality that scales.</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px">
+    ${cls.map(cl=>`
+      <div class="card" style="margin:0">
+        <div class="card-header"><h3><i class="ti ${cl.icon}" style="margin-right:6px;font-size:14px"></i>${cl.title}</h3></div>
+        <div style="padding:12px">
+          ${cl.items.map((item,i)=>`
+            <div class="checklist-item" ${i===cl.items.length-1?'style="border:none"':''}>
+              <input type="checkbox">
+              <span class="checklist-text">${item}</span>
+            </div>`).join('')}
+        </div>
+      </div>`).join('')}
     </div>`;
 }
 
 function pageInvoices(){
-  if(!isOffice()) return `<div class="notice notice-red">Office/Admin access required.</div>`;
-  const canDelete=isAdmin();
-  const rows=DB.invoices.map(inv=>`<tr>
-    <td style="font-family:var(--mono);font-size:11px;color:var(--text3)">${inv.id}</td>
-    <td class="td-name">${inv.client}</td>
-    <td style="font-size:11px;color:var(--text3)">${inv.job}</td>
-    <td><span class="badge badge-${inv.type==='Deposit'?'gold':'blue'}">${inv.type}</span></td>
-    <td style="font-family:var(--mono);font-weight:600">${fmt$(inv.amount)}</td>
-    <td>${statusBadge(inv.status)}</td>
-    <td style="font-size:11px;color:var(--text3)">${inv.dueDate}</td>
-    <td style="font-size:11px;color:var(--green-text)">${inv.paidDate||'—'}</td>
-    ${canDelete?`<td><button class="btn btn-icon btn-sm" onclick="delItem('invoices','${inv.id}')"><i class="ti ti-trash"></i></button></td>`:'<td></td>'}
-  </tr>`).join('');
+  const rows=DB.invoices.map(inv=>`
+    <tr>
+      <td style="font-family:var(--mono);font-size:11px;color:var(--text3)">${inv.id}</td>
+      <td class="td-name">${inv.client}</td>
+      <td style="font-size:11px;color:var(--text3)">${inv.job}</td>
+      <td style="font-size:11px;color:var(--text3)">${inv.date}</td>
+      <td><span class="badge badge-${inv.type==='Deposit'?'gold':'blue'}">${inv.type}</span></td>
+      <td style="font-family:var(--mono);font-weight:600">${fmt$(inv.amount)}</td>
+      <td>${statusBadge(inv.status)}</td>
+      <td style="font-size:11px;color:var(--text3)">${inv.dueDate}</td>
+      <td style="font-size:11px;color:var(--green-text)">${inv.paidDate||'—'}</td>
+      <td><button class="btn btn-icon btn-sm" onclick="delItem('invoices','${inv.id}')"><i class="ti ti-trash"></i></button></td>
+    </tr>`).join('');
   const paid=DB.invoices.filter(i=>i.status==='Paid').reduce((s,i)=>s+(i.amount||0),0);
   const out=DB.invoices.filter(i=>i.status!=='Paid').reduce((s,i)=>s+(i.amount||0),0);
   return `
-    <div class="page-header"><div class="page-header-left"><div class="page-title">Invoices &amp; Collections</div></div>
-    <div class="page-actions"><button class="btn btn-primary btn-sm" onclick="modalInvoice()"><i class="ti ti-plus"></i> New invoice</button></div></div>
-    <div class="notice notice-blue"><strong>Collections:</strong> Day 0 — collect on site. Day 3 — text. Day 7 — call. Day 14 — certified letter. Day 21+ — Texas Small Claims ($20K limit).</div>
+    <div class="page-header">
+      <div class="page-header-left"><div class="page-title">Invoices &amp; Collections</div><div class="page-sub">50% deposit before start — final balance collected on site before leaving</div></div>
+      <div class="page-actions"><button class="btn btn-primary btn-sm" onclick="modalInvoice()"><i class="ti ti-plus"></i> New invoice</button></div>
+    </div>
+    <div class="notice notice-blue"><strong>Collections sequence:</strong> Day 0 — collect on site. Day 3 — text reminder. Day 7 — phone call. Day 14 — certified letter. Day 21+ — Texas Small Claims Court (limit $20K).</div>
     <div class="metrics">
-      <div class="metric green"><div class="metric-label">Collected</div><div class="metric-value">${fmt$(paid)}</div></div>
+      <div class="metric green"><div class="metric-label">Total collected</div><div class="metric-value">${fmt$(paid)}</div></div>
       <div class="metric ${out>0?'red':''}"><div class="metric-label">Outstanding</div><div class="metric-value">${fmt$(out)}</div></div>
       <div class="metric"><div class="metric-label">Total invoices</div><div class="metric-value">${DB.invoices.length}</div></div>
+      <div class="metric gold"><div class="metric-label">Deposits</div><div class="metric-value">${DB.invoices.filter(i=>i.type==='Deposit').length}</div></div>
     </div>
-    <div class="card"><div class="card-header"><h3>All invoices</h3></div>
-    <div class="table-wrap"><table><thead><tr><th>Invoice #</th><th>Client</th><th>Job</th><th>Type</th><th>Amount</th><th>Status</th><th>Due</th><th>Paid</th><th></th></tr></thead>
-    <tbody>${rows||'<tr><td colspan="9"><div class="empty"><p>No invoices yet</p></div></td></tr>'}</tbody></table></div></div>`;
+    <div class="card">
+      <div class="card-header"><h3>All invoices</h3></div>
+      <div class="table-wrap"><table><thead><tr><th>Invoice #</th><th>Client</th><th>Job</th><th>Date</th><th>Type</th><th>Amount</th><th>Status</th><th>Due date</th><th>Paid date</th><th></th></tr></thead>
+      <tbody>${rows||'<tr><td colspan="10"><div class="empty"><i class="ti ti-receipt"></i><p>No invoices yet</p></div></td></tr>'}</tbody></table></div>
+    </div>`;
 }
 
 function pageAccounting(){
-  if(!isAdmin()) return `<div class="notice notice-red">Admin access required.</div>`;
   const income=DB.invoices.filter(i=>i.status==='Paid').reduce((s,i)=>s+(i.amount||0),0);
   const expenses=DB.pos.reduce((s,p)=>s+(p.amount||0),0)+DB.marketing.reduce((s,m)=>s+(m.spend||0),0);
   const profit=income-expenses;
+  const txRows=
+    DB.invoices.filter(i=>i.status==='Paid').map(i=>`<tr>
+      <td style="font-size:11px;color:var(--text3)">${i.paidDate}</td>
+      <td>${i.client}</td>
+      <td><span class="badge badge-green">Revenue</span></td>
+      <td style="font-size:11px;color:var(--text3)">${i.type}</td>
+      <td style="font-family:var(--mono);color:var(--green-text);font-weight:600">${fmt$(i.amount)}</td>
+      <td>—</td>
+    </tr>`).join('')+
+    DB.pos.map(p=>`<tr>
+      <td style="font-size:11px;color:var(--text3)">${p.date}</td>
+      <td>${p.vendor}</td>
+      <td><span class="badge badge-gold">Materials</span></td>
+      <td style="font-size:11px;color:var(--text3)">${p.job}</td>
+      <td>—</td>
+      <td style="font-family:var(--mono);color:var(--red-text)">${fmt$(p.amount)}</td>
+    </tr>`).join('')+
+    DB.marketing.filter(m=>m.spend>0).map(m=>`<tr>
+      <td style="font-size:11px;color:var(--text3)">${m.month}</td>
+      <td>${m.channel}</td>
+      <td><span class="badge badge-blue">Marketing</span></td>
+      <td style="font-size:11px;color:var(--text3)">Advertising</td>
+      <td>—</td>
+      <td style="font-family:var(--mono);color:var(--red-text)">${fmt$(m.spend)}</td>
+    </tr>`).join('');
   return `
-    <div class="page-header"><div class="page-header-left"><div class="page-title">Accounting Export</div><div class="page-sub">Bookkeeper-ready ledger — export CSV for Wave or QuickBooks</div></div>
-    <div class="page-actions"><button class="btn btn-sm" onclick="exportCSV()"><i class="ti ti-download"></i> Export CSV</button></div></div>
-    <div class="notice notice-green"><strong>For your bookkeeper:</strong> Click Export CSV and import into Wave (free) or QuickBooks. Reconcile monthly.</div>
+    <div class="page-header">
+      <div class="page-header-left"><div class="page-title">Accounting Export</div><div class="page-sub">Bookkeeper-ready income and expense ledger — export to CSV for Wave or QuickBooks</div></div>
+      <div class="page-actions"><button class="btn btn-sm" onclick="exportCSV()"><i class="ti ti-download"></i> Export CSV</button></div>
+    </div>
+    <div class="notice notice-green"><strong>For your bookkeeper:</strong> Click Export CSV and import into Wave (free) or QuickBooks. Categories are pre-labeled: Revenue, Materials, Marketing. Reconcile monthly.</div>
     <div class="metrics">
       <div class="metric green"><div class="metric-label">Total income</div><div class="metric-value">${fmt$(income)}</div></div>
       <div class="metric red"><div class="metric-label">Total expenses</div><div class="metric-value">${fmt$(expenses)}</div></div>
       <div class="metric ${profit>=0?'green':'red'}"><div class="metric-label">Gross profit</div><div class="metric-value">${fmt$(profit)}</div></div>
       <div class="metric"><div class="metric-label">Margin</div><div class="metric-value">${income>0?Math.round(profit/income*100):0}%</div></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>Transaction ledger</h3></div>
+      <div class="table-wrap"><table><thead><tr><th>Date</th><th>Party</th><th>Category</th><th>Note</th><th>Income</th><th>Expense</th></tr></thead>
+      <tbody>${txRows||'<tr><td colspan="6"><div class="empty"><p>No transactions yet</p></div></td></tr>'}</tbody></table></div>
     </div>`;
 }
 
 function pageSubs(){
-  const canDelete=isAdmin();
   const rows=DB.subs.map(s=>`<tr>
-    <td class="td-name">${s.name}</td><td>${s.trade}</td>
+    <td class="td-name">${s.name}</td>
+    <td>${s.trade}</td>
     <td style="font-size:11px;color:var(--text3)">${s.phone}</td>
     <td style="font-size:11px">${s.rate}</td>
     <td>${s.w9?'<span class="badge badge-green">On file</span>':'<span class="badge badge-red">Missing</span>'}</td>
-    <td>${'★'.repeat(s.rating)}</td>
+    <td style="font-size:13px">${'★'.repeat(s.rating)}</td>
     <td style="font-family:var(--mono)">${s.jobs}</td>
     <td style="font-size:11px;color:var(--text3)">${s.notes}</td>
-    ${canDelete?`<td><button class="btn btn-icon btn-sm" onclick="delItem('subs',${s.id})"><i class="ti ti-trash"></i></button></td>`:'<td></td>'}
+    <td><button class="btn btn-icon btn-sm" onclick="delItem('subs',${s.id})"><i class="ti ti-trash"></i></button></td>
   </tr>`).join('');
   return `
-    <div class="page-header"><div class="page-header-left"><div class="page-title">Subcontractors</div></div>
-    <div class="page-actions"><button class="btn btn-primary btn-sm" onclick="modalSub()"><i class="ti ti-plus"></i> Add sub</button></div></div>
-    <div class="notice notice-gold"><strong>Tax reminder:</strong> Any sub paid over $600/year gets a 1099-NEC. Collect W-9 before first payment.</div>
-    <div class="card"><div class="card-header"><h3>Sub roster</h3></div>
-    <div class="table-wrap"><table><thead><tr><th>Name</th><th>Trade</th><th>Phone</th><th>Rate</th><th>W-9</th><th>Rating</th><th>Jobs</th><th>Notes</th><th></th></tr></thead>
-    <tbody>${rows||'<tr><td colspan="9"><div class="empty"><p>No subs yet</p></div></td></tr>'}</tbody></table></div></div>`;
+    <div class="page-header">
+      <div class="page-header-left"><div class="page-title">Subcontractors</div><div class="page-sub">Track W-9s, ratings, and 1099 eligibility</div></div>
+      <div class="page-actions"><button class="btn btn-primary btn-sm" onclick="modalSub()"><i class="ti ti-plus"></i> Add sub</button></div>
+    </div>
+    <div class="notice notice-gold"><strong>Tax reminder:</strong> Any sub paid over $600/year gets a 1099-NEC. Collect W-9 before first payment — no exceptions. Issue 1099s by January 31.</div>
+    <div class="card">
+      <div class="card-header"><h3>Sub roster</h3></div>
+      <div class="table-wrap"><table><thead><tr><th>Name</th><th>Trade</th><th>Phone</th><th>Rate</th><th>W-9</th><th>Rating</th><th>Jobs done</th><th>Notes</th><th></th></tr></thead>
+      <tbody>${rows||'<tr><td colspan="9"><div class="empty"><i class="ti ti-users"></i><p>No subs yet</p></div></td></tr>'}</tbody></table></div>
+    </div>`;
 }
 
 function pageRealEstate(){
   const rows=DB.realEstate.map(d=>{
     const spread=d.arv-d.rehab-d.offer;
     return `<tr>
-      <td class="td-name">${d.address}</td><td>${d.type}</td><td>${statusBadge(d.status)}</td>
+      <td class="td-name">${d.address}</td>
+      <td>${d.type}</td>
+      <td>${statusBadge(d.status)}</td>
       <td style="font-family:var(--mono)">${fmt$(d.arv)}</td>
       <td style="font-family:var(--mono)">${fmt$(d.offer)}</td>
       <td style="font-family:var(--mono)">${fmt$(d.rehab)}</td>
       <td><span class="badge badge-${spread>0?'green':'red'}">${fmt$(spread)}</span></td>
+      <td style="font-size:11px;color:var(--text3)">${d.agent}</td>
       <td style="font-size:11px;color:var(--text3)">${d.notes}</td>
-      ${isAdmin()?`<td><button class="btn btn-icon btn-sm" onclick="delItem('realEstate',${d.id})"><i class="ti ti-trash"></i></button></td>`:'<td></td>'}
+      <td><button class="btn btn-icon btn-sm" onclick="delItem('realEstate',${d.id})"><i class="ti ti-trash"></i></button></td>
     </tr>`;
   }).join('');
   return `
-    <div class="page-header"><div class="page-header-left"><div class="page-title">Real Estate Pipeline</div></div>
-    <div class="page-actions"><button class="btn btn-primary btn-sm" onclick="modalRE()"><i class="ti ti-plus"></i> Add deal</button></div></div>
-    <div class="card"><div class="card-header"><h3>Deal analyzer</h3></div>
-    <div class="table-wrap"><table><thead><tr><th>Address</th><th>Type</th><th>Status</th><th>ARV</th><th>Offer</th><th>Rehab</th><th>Spread</th><th>Notes</th><th></th></tr></thead>
-    <tbody>${rows||'<tr><td colspan="9"><div class="empty"><i class="ti ti-building"></i><p>No deals yet</p></div></td></tr>'}</tbody></table></div></div>`;
+    <div class="page-header">
+      <div class="page-header-left"><div class="page-title">Real Estate Pipeline</div><div class="page-sub">Deal analyzer — ARV, offer, rehab, and spread calculator</div></div>
+      <div class="page-actions"><button class="btn btn-primary btn-sm" onclick="modalRE()"><i class="ti ti-plus"></i> Add deal</button></div>
+    </div>
+    <div class="notice notice-blue"><strong>The Kiyosaki play:</strong> Your contractor's eye gives you a real rehab cost edge no investor without tools has. Get your TX real estate license (Champions School ~$980), join a brokerage, earn commission AND do the rehab on the same deal.</div>
+    <div class="card">
+      <div class="card-header"><h3>Deal pipeline</h3></div>
+      <div class="table-wrap"><table><thead><tr><th>Address</th><th>Type</th><th>Status</th><th>ARV</th><th>Offer</th><th>Rehab est.</th><th>Spread</th><th>Agent</th><th>Notes</th><th></th></tr></thead>
+      <tbody>${rows||'<tr><td colspan="10"><div class="empty"><i class="ti ti-building"></i><p>No deals yet</p></div></td></tr>'}</tbody></table></div>
+    </div>`;
 }
 
 function pageCredit(){
   const c=DB.credit;
   const pct=Math.min(100,Math.round(((c.score-300)/(c.target-300))*100));
   const milestones=[
-    {score:580,label:'Secured card approval'},{score:620,label:'Business credit card'},
-    {score:640,label:'Equipment financing'},{score:660,label:'Business line of credit'},
-    {score:680,label:'SBA microloan eligible'},{score:700,label:'FHA rental property'},
+    {score:580,label:'Secured card approval'},
+    {score:620,label:'Business credit card'},
+    {score:640,label:'Equipment financing'},
+    {score:660,label:'Business line of credit'},
+    {score:680,label:'SBA microloan eligible'},
+    {score:700,label:'FHA rental property loan'},
   ];
   return `
-    <div class="page-header"><div class="page-header-left"><div class="page-title">Credit &amp; Business Building</div></div></div>
+    <div class="page-header">
+      <div class="page-header-left"><div class="page-title">Credit &amp; Business Building</div><div class="page-sub">Track your score, tradelines, and milestones from 500 to 700+</div></div>
+    </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
-      <div class="card" style="margin:0"><div class="card-header"><h3>Score tracker</h3></div>
-      <div style="padding:16px">
-        <div style="font-size:11px;color:var(--text3);margin-bottom:4px">Current score</div>
-        <div style="font-size:48px;font-weight:700;font-family:var(--mono);color:${c.score>=680?'var(--green-text)':c.score>=600?'var(--gold-text)':'var(--red-text)'};line-height:1;margin-bottom:12px">${c.score}</div>
-        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-bottom:4px"><span>300</span><span>Target: ${c.target}</span></div>
-        <div class="progress-bar" style="height:6px"><div class="progress-fill" style="width:${pct}%"></div></div>
-        <div style="margin-top:10px;font-size:11px;color:var(--text3)">${c.notes}</div>
-        ${isAdmin()?`<button class="btn btn-sm" style="margin-top:10px" onclick="updateScore()"><i class="ti ti-edit"></i> Update</button>`:''}
-      </div></div>
-      <div class="card" style="margin:0"><div class="card-header"><h3>Milestones</h3></div>
-      <div style="padding:12px">${milestones.map(m=>`
-        <div class="milestone">
-          <i class="ti ${c.score>=m.score?'ti-circle-check':'ti-circle'}" style="color:${c.score>=m.score?'var(--green-text)':'var(--text3)'}"></i>
-          <span class="milestone-text" style="color:${c.score>=m.score?'var(--text)':'var(--text3)'}">${m.label}</span>
-          <span class="milestone-score">${m.score}</span>
-        </div>`).join('')}
-      </div></div>
+      <div class="card" style="margin:0">
+        <div class="card-header"><h3>Credit score tracker</h3></div>
+        <div style="padding:16px">
+          <div style="font-size:11px;color:var(--text3);margin-bottom:4px">Current score</div>
+          <div style="font-size:48px;font-weight:700;font-family:var(--mono);color:${c.score>=680?'var(--green-text)':c.score>=600?'var(--gold-text)':'var(--red-text)'};line-height:1;margin-bottom:12px">${c.score}</div>
+          <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-bottom:4px"><span>300</span><span>Target: ${c.target}</span></div>
+          <div class="progress-bar" style="height:6px"><div class="progress-fill" style="width:${pct}%"></div></div>
+          <div style="margin-top:12px;font-size:11px;color:var(--text3);line-height:1.6">${c.notes}</div>
+          <button class="btn btn-sm" style="margin-top:12px" onclick="updateScore()"><i class="ti ti-edit"></i> Update score</button>
+        </div>
+      </div>
+      <div class="card" style="margin:0">
+        <div class="card-header"><h3>Score milestones</h3></div>
+        <div style="padding:12px">
+          ${milestones.map(m=>`
+            <div class="milestone">
+              <i class="ti ${c.score>=m.score?'ti-circle-check':'ti-circle'}" style="color:${c.score>=m.score?'var(--green-text)':'var(--text3)'}"></i>
+              <span class="milestone-text" style="color:${c.score>=m.score?'var(--text)':'var(--text3)'}">${m.label}</span>
+              <span class="milestone-score">${m.score}</span>
+            </div>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>Tradelines</h3><button class="btn btn-sm" onclick="modalTradeline()"><i class="ti ti-plus"></i> Add</button></div>
+      <table><thead><tr><th>Account</th><th>Limit</th><th>Balance</th><th>Utilization</th><th>Status</th></tr></thead>
+      <tbody>${c.cards.map(card=>`<tr>
+        <td class="td-name">${card.name}</td>
+        <td style="font-family:var(--mono)">${fmt$(card.limit)}</td>
+        <td style="font-family:var(--mono)">${fmt$(card.balance)}</td>
+        <td><span class="badge badge-${parseInt(card.util)<30?'green':'red'}">${card.util}</span></td>
+        <td><span class="badge badge-green">${card.status}</span></td>
+      </tr>`).join('')}</tbody></table>
     </div>`;
 }
 
-// ── MODALS ────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════
+// MODALS
+// ══════════════════════════════════════════════════════════════════
+
 function modalLead(id){
   const l=id?DB.leads.find(x=>x.id===id):{};
   const srcOpts=['Google','Nextdoor','Facebook','Realtor Referral','Client Referral','Door Knock','Thumbtack','HomeAdvisor','Word of Mouth','Other'];
@@ -870,7 +832,7 @@ function modalLead(id){
   const statOpts=['New Lead','Estimate Scheduled','Proposal Sent','Negotiating','Deposit Received','Job Scheduled','In Progress','Won','Lost','On Hold'];
   function sel(opts,val,id2){return `<select id="${id2}">${opts.map(o=>`<option${o===val?' selected':''}>${o}</option>`).join('')}</select>`;}
   openModal(`<div class="modal">
-    <div class="modal-head"><h3>${id?'Edit lead':'Add lead'}</h3><button class="btn btn-icon btn-sm" onclick="closeModal()"><i class="ti ti-x"></i></button></div>
+    <div class="modal-head"><h3>${id?'Edit lead':'Add new lead'}</h3><button class="btn btn-icon btn-sm" onclick="closeModal()"><i class="ti ti-x"></i></button></div>
     <div class="modal-body">
       <div class="form-grid">
         <div class="form-row"><label>Client name</label><input id="fl-name" value="${l.name||''}"></div>
@@ -878,11 +840,11 @@ function modalLead(id){
       </div>
       <div class="form-grid">
         <div class="form-row"><label>City / Address</label><input id="fl-city" value="${l.city||''}"></div>
-        <div class="form-row"><label>Date</label><input id="fl-date" type="date" value="${l.date||today()}"></div>
+        <div class="form-row"><label>Date in</label><input id="fl-date" type="date" value="${l.date||today()}"></div>
       </div>
       <div class="form-grid">
-        <div class="form-row"><label>Source</label>${sel(srcOpts,l.source,'fl-src')}</div>
-        <div class="form-row"><label>Service</label>${sel(svcOpts,l.service,'fl-svc')}</div>
+        <div class="form-row"><label>Lead source</label>${sel(srcOpts,l.source,'fl-src')}</div>
+        <div class="form-row"><label>Service type</label>${sel(svcOpts,l.service,'fl-svc')}</div>
       </div>
       <div class="form-row"><label>Scope notes</label><textarea id="fl-scope">${l.scope||''}</textarea></div>
       <div class="form-grid">
@@ -897,239 +859,451 @@ function modalLead(id){
     </div>
     <div class="modal-foot">
       <button class="btn" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-primary" onclick="saveLead(${id||'null'})">Save</button>
+      <button class="btn btn-primary" onclick="saveLead(${id||'null'})">Save lead</button>
     </div>
   </div>`);
 }
+
 function saveLead(id){
-  const name=$('fl-name').value.trim();if(!name){alert('Name required');return;}
+  const name=$('fl-name').value.trim();
+  if(!name){alert('Client name required');return;}
   const d={name,phone:$('fl-phone').value,city:$('fl-city').value,date:$('fl-date').value,
     source:$('fl-src').value,service:$('fl-svc').value,scope:$('fl-scope').value,
     estimate:parseFloat($('fl-est').value)||0,status:$('fl-stat').value,
     followup:$('fl-fu').value,priority:$('fl-pri').value,notes:$('fl-notes').value};
-  if(id){Object.assign(DB.leads.find(l=>l.id===id),d);}else{d.id=DB.nLead++;DB.leads.push(d);}
+  if(id){Object.assign(DB.leads.find(l=>l.id===id),d);}
+  else{d.id=DB.nLead++;DB.leads.push(d);}
   saveDB();closeModal();render();
 }
+
 function convertLead(id){
   const l=DB.leads.find(x=>x.id===id);
   if(!l||!confirm(`Convert ${l.name} to a past client?`))return;
   DB.clients.push({id:DB.nClient++,name:l.name,phone:l.phone,email:'',city:l.city,
     service:l.service,jobDate:today(),amount:l.estimate,paid:false,review:false,
-    rating:0,refs:0,nextFollowup:'',ltv:l.estimate});
+    rating:0,refs:0,nextFollowup:'',repeat:false,ltv:l.estimate});
   l.status='Won';saveDB();render();
 }
+
 function modalClient(){
   openModal(`<div class="modal">
     <div class="modal-head"><h3>Add past client</h3><button class="btn btn-icon btn-sm" onclick="closeModal()"><i class="ti ti-x"></i></button></div>
     <div class="modal-body">
-      <div class="form-grid"><div class="form-row"><label>Name</label><input id="fc-name"></div><div class="form-row"><label>Phone</label><input id="fc-phone"></div></div>
-      <div class="form-grid"><div class="form-row"><label>Email</label><input id="fc-email"></div><div class="form-row"><label>City</label><input id="fc-city"></div></div>
-      <div class="form-grid"><div class="form-row"><label>Service</label><input id="fc-svc"></div><div class="form-row"><label>Job date</label><input id="fc-date" type="date" value="${today()}"></div></div>
-      <div class="form-grid"><div class="form-row"><label>Amount ($)</label><input id="fc-amt" type="number"></div><div class="form-row"><label>Google review?</label><select id="fc-rev"><option value="false">No</option><option value="true">Yes</option></select></div></div>
+      <div class="form-grid">
+        <div class="form-row"><label>Name</label><input id="fc-name"></div>
+        <div class="form-row"><label>Phone</label><input id="fc-phone"></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-row"><label>Email</label><input id="fc-email"></div>
+        <div class="form-row"><label>City</label><input id="fc-city"></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-row"><label>Service</label><input id="fc-svc"></div>
+        <div class="form-row"><label>Job date</label><input id="fc-date" type="date" value="${today()}"></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-row"><label>Final amount ($)</label><input id="fc-amt" type="number"></div>
+        <div class="form-row"><label>Google review?</label><select id="fc-rev"><option value="false">No</option><option value="true">Yes</option></select></div>
+      </div>
+      <div class="form-row"><label>Next follow-up date</label><input id="fc-fu" type="date"></div>
     </div>
-    <div class="modal-foot"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveClient()">Save</button></div>
+    <div class="modal-foot">
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveClient()">Save</button>
+    </div>
   </div>`);
 }
 function saveClient(){
-  const name=$('fc-name').value.trim();if(!name){alert('Name required');return;}
+  const name=$('fc-name').value.trim();
+  if(!name){alert('Name required');return;}
   DB.clients.push({id:DB.nClient++,name,phone:$('fc-phone').value,email:$('fc-email').value,
     city:$('fc-city').value,service:$('fc-svc').value,jobDate:$('fc-date').value,
     amount:parseFloat($('fc-amt').value)||0,paid:false,review:$('fc-rev').value==='true',
-    rating:0,refs:0,nextFollowup:'',ltv:parseFloat($('fc-amt').value)||0});
+    rating:0,refs:0,nextFollowup:$('fc-fu').value,repeat:false,ltv:parseFloat($('fc-amt').value)||0});
   saveDB();closeModal();render();
 }
+
 function modalEstimate(){
   openModal(`<div class="modal">
     <div class="modal-head"><h3>New estimate</h3><button class="btn btn-icon btn-sm" onclick="closeModal()"><i class="ti ti-x"></i></button></div>
     <div class="modal-body">
-      <div class="form-grid"><div class="form-row"><label>Client</label><input id="fe-client"></div><div class="form-row"><label>Service</label><input id="fe-svc"></div></div>
-      <div class="form-grid"><div class="form-row"><label>Materials ($)</label><input id="fe-mat" type="number" oninput="calcEst()"></div><div class="form-row"><label>Labor ($)</label><input id="fe-lab" type="number" oninput="calcEst()"></div></div>
-      <div class="form-grid"><div class="form-row"><label>Overhead ($)</label><input id="fe-oh" type="number" value="0" oninput="calcEst()"></div><div class="form-row"><label>Total / margin</label><div class="form-calc" id="fe-calc">Enter values above</div></div></div>
-      <div class="form-grid"><div class="form-row"><label>Status</label><select id="fe-stat"><option>Pending</option><option>Sent</option><option>Proposal Sent</option><option>Won</option><option>Lost</option></select></div><div class="form-row"><label>Date</label><input id="fe-date" type="date" value="${today()}"></div></div>
+      <div class="form-grid">
+        <div class="form-row"><label>Client</label><input id="fe-client"></div>
+        <div class="form-row"><label>Service</label><input id="fe-svc"></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-row"><label>Materials ($)</label><input id="fe-mat" type="number" oninput="calcEst()"></div>
+        <div class="form-row"><label>Labor ($)</label><input id="fe-lab" type="number" oninput="calcEst()"></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-row"><label>Overhead ($)</label><input id="fe-oh" type="number" value="0" oninput="calcEst()"></div>
+        <div class="form-row"><label>Total / margin</label><div class="form-calc" id="fe-calc">Enter values above</div></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-row"><label>Status</label><select id="fe-stat"><option>Pending</option><option>Sent</option><option>Proposal Sent</option><option>Won</option><option>Lost</option></select></div>
+        <div class="form-row"><label>Date</label><input id="fe-date" type="date" value="${today()}"></div>
+      </div>
       <div class="form-row"><label>Notes</label><textarea id="fe-notes"></textarea></div>
     </div>
-    <div class="modal-foot"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveEst()">Save</button></div>
+    <div class="modal-foot">
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveEst()">Save estimate</button>
+    </div>
   </div>`);
 }
 function calcEst(){
   const m=parseFloat($('fe-mat').value)||0,l=parseFloat($('fe-lab').value)||0,o=parseFloat($('fe-oh').value)||0;
-  const t=m+l+o,mg=t>0?Math.round((t-m)/t*100):0;
-  $('fe-calc').innerHTML=`<strong>${fmt$(t)}</strong>&nbsp;<span style="color:${mg>=35?'var(--green-text)':mg>=25?'var(--gold-text)':'var(--red-text)'}">${mg}%</span>`;
+  const t=m+l+o;
+  const mg=t>0?Math.round((t-m)/t*100):0;
+  $('fe-calc').innerHTML=`<strong>${fmt$(t)}</strong>&nbsp;<span style="color:${mg>=35?'var(--green-text)':mg>=25?'var(--gold-text)':'var(--red-text)'}">${mg}% margin</span>`;
 }
 function saveEst(){
-  const client=$('fe-client').value.trim();if(!client){alert('Client required');return;}
+  const client=$('fe-client').value.trim();
+  if(!client){alert('Client required');return;}
   const m=parseFloat($('fe-mat').value)||0,l=parseFloat($('fe-lab').value)||0,o=parseFloat($('fe-oh').value)||0;
   const id='EST-'+String(100+DB.nEst++).padStart(3,'0');
-  DB.estimates.push({id,client,service:$('fe-svc').value,date:$('fe-date').value,materials:m,labor:l,overhead:o,amount:m+l+o,status:$('fe-stat').value,notes:$('fe-notes').value});
+  DB.estimates.push({id,client,service:$('fe-svc').value,date:$('fe-date').value,
+    materials:m,labor:l,overhead:o,amount:m+l+o,status:$('fe-stat').value,notes:$('fe-notes').value});
   saveDB();closeModal();render();
 }
+
 function modalProject(){
   openModal(`<div class="modal">
     <div class="modal-head"><h3>New project</h3><button class="btn btn-icon btn-sm" onclick="closeModal()"><i class="ti ti-x"></i></button></div>
     <div class="modal-body">
-      <div class="form-grid"><div class="form-row"><label>Client</label><input id="fp-client"></div><div class="form-row"><label>Service</label><input id="fp-svc"></div></div>
-      <div class="form-grid"><div class="form-row"><label>Start date</label><input id="fp-start" type="date" value="${today()}"></div><div class="form-row"><label>End date</label><input id="fp-end" type="date"></div></div>
-      <div class="form-grid"><div class="form-row"><label>Total ($)</label><input id="fp-amt" type="number"></div><div class="form-row"><label>Deposit ($)</label><input id="fp-dep" type="number"></div></div>
-      <div class="form-grid"><div class="form-row"><label>Status</label><select id="fp-stat"><option>Scheduled</option><option>In Progress</option><option>Complete</option></select></div><div class="form-row"><label>Crew</label><input id="fp-crew" value="Owner"></div></div>
+      <div class="form-grid">
+        <div class="form-row"><label>Client</label><input id="fp-client"></div>
+        <div class="form-row"><label>Service</label><input id="fp-svc"></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-row"><label>Start date</label><input id="fp-start" type="date" value="${today()}"></div>
+        <div class="form-row"><label>End date</label><input id="fp-end" type="date"></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-row"><label>Total amount ($)</label><input id="fp-amt" type="number"></div>
+        <div class="form-row"><label>Deposit received ($)</label><input id="fp-dep" type="number"></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-row"><label>Status</label><select id="fp-stat"><option>Scheduled</option><option>In Progress</option><option>Complete</option></select></div>
+        <div class="form-row"><label>Crew</label><input id="fp-crew" value="Owner"></div>
+      </div>
     </div>
-    <div class="modal-foot"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveProject()">Save</button></div>
+    <div class="modal-foot">
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveProject()">Save project</button>
+    </div>
   </div>`);
 }
 function saveProject(){
-  const client=$('fp-client').value.trim();if(!client){alert('Client required');return;}
+  const client=$('fp-client').value.trim();
+  if(!client){alert('Client required');return;}
   const amt=parseFloat($('fp-amt').value)||0,dep=parseFloat($('fp-dep').value)||0;
   const id='JOB-'+String(100+DB.nJob++).padStart(3,'0');
-  DB.projects.push({id,client,service:$('fp-svc').value,startDate:$('fp-start').value,endDate:$('fp-end').value,status:$('fp-stat').value,crew:$('fp-crew').value,amount:amt,deposit:dep,balance:amt-dep,notes:''});
+  DB.projects.push({id,client,service:$('fp-svc').value,startDate:$('fp-start').value,
+    endDate:$('fp-end').value,status:$('fp-stat').value,crew:$('fp-crew').value,
+    amount:amt,deposit:dep,balance:amt-dep,notes:''});
   saveDB();closeModal();render();
 }
+
 function modalPO(){
   const vOpts=DB.vendors.map(v=>v.name).concat(['Other']);
+  const sel=opts=>`<select id="fpo-vendor">${opts.map(o=>`<option>${o}</option>`).join('')}</select>`;
   openModal(`<div class="modal">
     <div class="modal-head"><h3>New purchase order</h3><button class="btn btn-icon btn-sm" onclick="closeModal()"><i class="ti ti-x"></i></button></div>
     <div class="modal-body">
-      <div class="form-grid"><div class="form-row"><label>Vendor</label><select id="fpo-vendor">${vOpts.map(o=>`<option>${o}</option>`).join('')}</select></div><div class="form-row"><label>Job ref</label><input id="fpo-job" value="TBD"></div></div>
-      <div class="form-row"><label>Items</label><textarea id="fpo-items"></textarea></div>
-      <div class="form-grid"><div class="form-row"><label>Amount ($)</label><input id="fpo-amt" type="number"></div><div class="form-row"><label>ETA</label><input id="fpo-eta" type="date"></div></div>
+      <div class="form-grid">
+        <div class="form-row"><label>Vendor</label>${sel(vOpts)}</div>
+        <div class="form-row"><label>Job reference</label><input id="fpo-job" value="TBD"></div>
+      </div>
+      <div class="form-row"><label>Items / description</label><textarea id="fpo-items"></textarea></div>
+      <div class="form-grid">
+        <div class="form-row"><label>Amount ($)</label><input id="fpo-amt" type="number"></div>
+        <div class="form-row"><label>ETA / delivery date</label><input id="fpo-eta" type="date"></div>
+      </div>
       <div class="form-row"><label>Status</label><select id="fpo-stat"><option>Ordered</option><option>In Transit</option><option>Received</option></select></div>
     </div>
-    <div class="modal-foot"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="savePO()">Create PO</button></div>
+    <div class="modal-foot">
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="savePO()">Create PO</button>
+    </div>
   </div>`);
 }
 function savePO(){
-  const items=$('fpo-items').value.trim();if(!items){alert('Items required');return;}
+  const items=$('fpo-items').value.trim();
+  if(!items){alert('Items required');return;}
   const id='PO-'+String(100+DB.nPO++).padStart(3,'0');
   const stat=$('fpo-stat').value;
-  DB.pos.push({id,vendor:$('fpo-vendor').value,job:$('fpo-job').value,date:today(),items,amount:parseFloat($('fpo-amt').value)||0,status:stat,eta:$('fpo-eta').value,received:stat==='Received'});
+  DB.pos.push({id,vendor:$('fpo-vendor').value,job:$('fpo-job').value,date:today(),
+    items,amount:parseFloat($('fpo-amt').value)||0,status:stat,eta:$('fpo-eta').value,received:stat==='Received'});
   saveDB();closeModal();render();
 }
+
 function modalVendor(){
   openModal(`<div class="modal">
     <div class="modal-head"><h3>Add vendor</h3><button class="btn btn-icon btn-sm" onclick="closeModal()"><i class="ti ti-x"></i></button></div>
     <div class="modal-body">
       <div class="form-row"><label>Vendor name</label><input id="fv-name"></div>
-      <div class="form-grid"><div class="form-row"><label>Category</label><select id="fv-cat"><option>Materials</option><option>Lumber</option><option>Paint</option><option>Tools</option><option>Flooring</option><option>Other</option></select></div><div class="form-row"><label>Terms</label><select id="fv-terms"><option>COD</option><option>Net15</option><option>Net30</option><option>Net60</option></select></div></div>
-      <div class="form-grid"><div class="form-row"><label>Contact</label><input id="fv-contact"></div><div class="form-row"><label>Phone</label><input id="fv-phone"></div></div>
+      <div class="form-grid">
+        <div class="form-row"><label>Category</label><select id="fv-cat"><option>Materials</option><option>Lumber</option><option>Paint</option><option>Tools</option><option>Flooring</option><option>Roofing</option><option>Other</option></select></div>
+        <div class="form-row"><label>Terms</label><select id="fv-terms"><option>COD</option><option>Net15</option><option>Net30</option><option>Net60</option></select></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-row"><label>Contact name</label><input id="fv-contact"></div>
+        <div class="form-row"><label>Phone</label><input id="fv-phone"></div>
+      </div>
     </div>
-    <div class="modal-foot"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveVendor()">Add</button></div>
+    <div class="modal-foot">
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveVendor()">Add vendor</button>
+    </div>
   </div>`);
 }
 function saveVendor(){
-  const name=$('fv-name').value.trim();if(!name){alert('Name required');return;}
+  const name=$('fv-name').value.trim();
+  if(!name){alert('Vendor name required');return;}
   DB.vendors.push({id:Date.now(),name,category:$('fv-cat').value,terms:$('fv-terms').value,contact:$('fv-contact').value,phone:$('fv-phone').value});
   saveDB();closeModal();render();
 }
+
 function modalInvoice(){
   openModal(`<div class="modal">
     <div class="modal-head"><h3>New invoice</h3><button class="btn btn-icon btn-sm" onclick="closeModal()"><i class="ti ti-x"></i></button></div>
     <div class="modal-body">
-      <div class="form-grid"><div class="form-row"><label>Client</label><input id="fi-client"></div><div class="form-row"><label>Job ref</label><input id="fi-job"></div></div>
-      <div class="form-grid"><div class="form-row"><label>Amount ($)</label><input id="fi-amt" type="number"></div><div class="form-row"><label>Type</label><select id="fi-type"><option>Deposit</option><option>Progress</option><option>Final</option><option>Change Order</option></select></div></div>
-      <div class="form-grid"><div class="form-row"><label>Date</label><input id="fi-date" type="date" value="${today()}"></div><div class="form-row"><label>Due date</label><input id="fi-due" type="date" value="${today()}"></div></div>
+      <div class="form-grid">
+        <div class="form-row"><label>Client</label><input id="fi-client"></div>
+        <div class="form-row"><label>Job reference</label><input id="fi-job"></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-row"><label>Amount ($)</label><input id="fi-amt" type="number"></div>
+        <div class="form-row"><label>Type</label><select id="fi-type"><option>Deposit</option><option>Progress</option><option>Final</option><option>Change Order</option></select></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-row"><label>Invoice date</label><input id="fi-date" type="date" value="${today()}"></div>
+        <div class="form-row"><label>Due date</label><input id="fi-due" type="date" value="${today()}"></div>
+      </div>
       <div class="form-row"><label>Status</label><select id="fi-stat"><option>Paid</option><option>Pending</option><option>Overdue</option></select></div>
     </div>
-    <div class="modal-foot"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveInvoice()">Save</button></div>
+    <div class="modal-foot">
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveInvoice()">Save invoice</button>
+    </div>
   </div>`);
 }
 function saveInvoice(){
-  const client=$('fi-client').value.trim();if(!client){alert('Client required');return;}
+  const client=$('fi-client').value.trim();
+  if(!client){alert('Client required');return;}
   const id='INV-'+String(100+DB.nInv++).padStart(3,'0');
   const stat=$('fi-stat').value;
-  DB.invoices.push({id,client,job:$('fi-job').value,date:$('fi-date').value,amount:parseFloat($('fi-amt').value)||0,type:$('fi-type').value,status:stat,dueDate:$('fi-due').value,paidDate:stat==='Paid'?today():''});
+  DB.invoices.push({id,client,job:$('fi-job').value,date:$('fi-date').value,
+    amount:parseFloat($('fi-amt').value)||0,type:$('fi-type').value,
+    status:stat,dueDate:$('fi-due').value,paidDate:stat==='Paid'?today():''});
   saveDB();closeModal();render();
 }
+
 function modalMarketing(){
   openModal(`<div class="modal">
-    <div class="modal-head"><h3>Log campaign</h3><button class="btn btn-icon btn-sm" onclick="closeModal()"><i class="ti ti-x"></i></button></div>
+    <div class="modal-head"><h3>Log marketing campaign</h3><button class="btn btn-icon btn-sm" onclick="closeModal()"><i class="ti ti-x"></i></button></div>
     <div class="modal-body">
-      <div class="form-grid"><div class="form-row"><label>Channel</label><select id="fm-ch"><option>Google Business</option><option>Nextdoor</option><option>Facebook</option><option>Instagram</option><option>Realtor Referral</option><option>Client Referral</option><option>Door Knock</option><option>Thumbtack</option><option>Other</option></select></div><div class="form-row"><label>Month</label><input id="fm-month" value="${new Date().toLocaleString('default',{month:'long',year:'numeric'})}"></div></div>
-      <div class="form-grid"><div class="form-row"><label>Ad spend ($)</label><input id="fm-spend" type="number" value="0"></div><div class="form-row"><label>Leads</label><input id="fm-leads" type="number" value="0"></div></div>
-      <div class="form-grid"><div class="form-row"><label>Jobs won</label><input id="fm-jobs" type="number" value="0"></div><div class="form-row"><label>Revenue ($)</label><input id="fm-rev" type="number" value="0"></div></div>
+      <div class="form-grid">
+        <div class="form-row"><label>Channel</label><select id="fm-ch"><option>Google Business</option><option>Nextdoor</option><option>Facebook</option><option>Instagram</option><option>Realtor Referral</option><option>Client Referral</option><option>Door Knock</option><option>Thumbtack</option><option>HomeAdvisor</option><option>Other</option></select></div>
+        <div class="form-row"><label>Month</label><input id="fm-month" value="${new Date().toLocaleString('default',{month:'long',year:'numeric'})}"></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-row"><label>Ad spend ($)</label><input id="fm-spend" type="number" value="0"></div>
+        <div class="form-row"><label>Leads generated</label><input id="fm-leads" type="number" value="0"></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-row"><label>Jobs won</label><input id="fm-jobs" type="number" value="0"></div>
+        <div class="form-row"><label>Revenue attributed ($)</label><input id="fm-rev" type="number" value="0"></div>
+      </div>
     </div>
-    <div class="modal-foot"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveMkt()">Save</button></div>
+    <div class="modal-foot">
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveMkt()">Save</button>
+    </div>
   </div>`);
 }
 function saveMkt(){
-  DB.marketing.push({id:Date.now(),channel:$('fm-ch').value,month:$('fm-month').value,spend:parseFloat($('fm-spend').value)||0,leads:parseInt($('fm-leads').value)||0,jobs:parseInt($('fm-jobs').value)||0,revenue:parseFloat($('fm-rev').value)||0});
+  DB.marketing.push({id:Date.now(),channel:$('fm-ch').value,month:$('fm-month').value,
+    spend:parseFloat($('fm-spend').value)||0,leads:parseInt($('fm-leads').value)||0,
+    jobs:parseInt($('fm-jobs').value)||0,revenue:parseFloat($('fm-rev').value)||0});
   saveDB();closeModal();render();
 }
+
 function modalSub(){
   openModal(`<div class="modal">
     <div class="modal-head"><h3>Add subcontractor</h3><button class="btn btn-icon btn-sm" onclick="closeModal()"><i class="ti ti-x"></i></button></div>
     <div class="modal-body">
-      <div class="form-grid"><div class="form-row"><label>Name</label><input id="fs-name"></div><div class="form-row"><label>Trade</label><input id="fs-trade"></div></div>
-      <div class="form-grid"><div class="form-row"><label>Phone</label><input id="fs-phone"></div><div class="form-row"><label>Rate</label><input id="fs-rate" placeholder="$28/hr"></div></div>
-      <div class="form-grid"><div class="form-row"><label>W-9 on file</label><select id="fs-w9"><option value="false">No</option><option value="true">Yes</option></select></div><div class="form-row"><label>Rating (1-5)</label><input id="fs-rating" type="number" min="1" max="5" value="5"></div></div>
+      <div class="form-grid">
+        <div class="form-row"><label>Name</label><input id="fs-name"></div>
+        <div class="form-row"><label>Trade</label><input id="fs-trade"></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-row"><label>Phone</label><input id="fs-phone"></div>
+        <div class="form-row"><label>Rate</label><input id="fs-rate" placeholder="$28/hr or $400/day"></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-row"><label>W-9 on file</label><select id="fs-w9"><option value="false">No</option><option value="true">Yes</option></select></div>
+        <div class="form-row"><label>Rating (1-5)</label><input id="fs-rating" type="number" min="1" max="5" value="5"></div>
+      </div>
       <div class="form-row"><label>Notes</label><textarea id="fs-notes"></textarea></div>
     </div>
-    <div class="modal-foot"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveSub()">Add</button></div>
+    <div class="modal-foot">
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveSub()">Add sub</button>
+    </div>
   </div>`);
 }
 function saveSub(){
-  const name=$('fs-name').value.trim();if(!name){alert('Name required');return;}
-  DB.subs.push({id:Date.now(),name,trade:$('fs-trade').value,phone:$('fs-phone').value,rate:$('fs-rate').value,w9:$('fs-w9').value==='true',rating:parseInt($('fs-rating').value)||5,jobs:0,notes:$('fs-notes').value});
+  const name=$('fs-name').value.trim();
+  if(!name){alert('Name required');return;}
+  DB.subs.push({id:Date.now(),name,trade:$('fs-trade').value,phone:$('fs-phone').value,
+    rate:$('fs-rate').value,w9:$('fs-w9').value==='true',
+    rating:parseInt($('fs-rating').value)||5,jobs:0,notes:$('fs-notes').value});
   saveDB();closeModal();render();
 }
+
 function modalRE(){
   openModal(`<div class="modal">
     <div class="modal-head"><h3>Add deal</h3><button class="btn btn-icon btn-sm" onclick="closeModal()"><i class="ti ti-x"></i></button></div>
     <div class="modal-body">
       <div class="form-row"><label>Address</label><input id="fre-addr"></div>
-      <div class="form-grid"><div class="form-row"><label>Type</label><select id="fre-type"><option>Buy & Hold</option><option>Fix & Flip</option><option>BRRRR</option><option>Wholesale</option></select></div><div class="form-row"><label>Status</label><select id="fre-stat"><option>Analyzing</option><option>Active</option><option>Closed</option></select></div></div>
-      <div class="form-grid"><div class="form-row"><label>ARV ($)</label><input id="fre-arv" type="number"></div><div class="form-row"><label>Offer ($)</label><input id="fre-offer" type="number"></div></div>
-      <div class="form-grid"><div class="form-row"><label>Rehab ($)</label><input id="fre-rehab" type="number"></div><div class="form-row"><label>Agent</label><input id="fre-agent" value="Self"></div></div>
+      <div class="form-grid">
+        <div class="form-row"><label>Type</label><select id="fre-type"><option>Buy & Hold</option><option>Fix & Flip</option><option>BRRRR</option><option>Wholesale</option></select></div>
+        <div class="form-row"><label>Status</label><select id="fre-stat"><option>Analyzing</option><option>Active</option><option>Closed</option></select></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-row"><label>ARV ($)</label><input id="fre-arv" type="number"></div>
+        <div class="form-row"><label>Offer price ($)</label><input id="fre-offer" type="number"></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-row"><label>Rehab estimate ($)</label><input id="fre-rehab" type="number"></div>
+        <div class="form-row"><label>Agent</label><input id="fre-agent" value="Self"></div>
+      </div>
       <div class="form-row"><label>Notes</label><textarea id="fre-notes"></textarea></div>
     </div>
-    <div class="modal-foot"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveRE()">Save</button></div>
+    <div class="modal-foot">
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveRE()">Save deal</button>
+    </div>
   </div>`);
 }
 function saveRE(){
-  const addr=$('fre-addr').value.trim();if(!addr){alert('Address required');return;}
-  DB.realEstate.push({id:Date.now(),address:addr,type:$('fre-type').value,status:$('fre-stat').value,arv:parseFloat($('fre-arv').value)||0,offer:parseFloat($('fre-offer').value)||0,rehab:parseFloat($('fre-rehab').value)||0,agent:$('fre-agent').value,notes:$('fre-notes').value});
+  const addr=$('fre-addr').value.trim();
+  if(!addr){alert('Address required');return;}
+  DB.realEstate.push({id:Date.now(),address:addr,type:$('fre-type').value,
+    status:$('fre-stat').value,arv:parseFloat($('fre-arv').value)||0,
+    offer:parseFloat($('fre-offer').value)||0,rehab:parseFloat($('fre-rehab').value)||0,
+    agent:$('fre-agent').value,notes:$('fre-notes').value});
   saveDB();closeModal();render();
 }
+
+function modalTradeline(){
+  openModal(`<div class="modal">
+    <div class="modal-head"><h3>Add tradeline</h3><button class="btn btn-icon btn-sm" onclick="closeModal()"><i class="ti ti-x"></i></button></div>
+    <div class="modal-body">
+      <div class="form-row"><label>Account name</label><input id="ft-name"></div>
+      <div class="form-grid">
+        <div class="form-row"><label>Credit limit ($)</label><input id="ft-limit" type="number"></div>
+        <div class="form-row"><label>Current balance ($)</label><input id="ft-bal" type="number" value="0"></div>
+      </div>
+      <div class="form-row"><label>Status</label><select id="ft-stat"><option>On Time</option><option>Late</option><option>Closed</option></select></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveTL()">Add</button>
+    </div>
+  </div>`);
+}
+function saveTL(){
+  const name=$('ft-name').value.trim();
+  if(!name){alert('Account name required');return;}
+  const limit=parseFloat($('ft-limit').value)||0;
+  const bal=parseFloat($('ft-bal').value)||0;
+  DB.credit.cards.push({name,limit,balance:bal,util:limit>0?Math.round(bal/limit*100)+'%':'N/A',status:$('ft-stat').value});
+  saveDB();closeModal();render();
+}
+
+function settingsModal(){
+  openModal(`<div class="modal">
+    <div class="modal-head"><h3>Settings</h3><button class="btn btn-icon btn-sm" onclick="closeModal()"><i class="ti ti-x"></i></button></div>
+    <div class="modal-body">
+      <div class="form-row"><label>Business name</label><input id="fs2-biz" value="${DB.bizName||''}"></div>
+      <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
+        <div style="font-size:11px;color:var(--text3);margin-bottom:8px;font-weight:500">DATA MANAGEMENT</div>
+        <button class="btn btn-sm" onclick="exportCSV()" style="margin-right:6px"><i class="ti ti-download"></i> Export CSV</button>
+        <button class="btn btn-sm" style="color:var(--red-text);border-color:var(--red-bg)" onclick="if(confirm('Clear ALL data? This cannot be undone.')){localStorage.removeItem('${STORE}');location.reload();}"><i class="ti ti-trash"></i> Clear all data</button>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveSettings()">Save</button>
+    </div>
+  </div>`);
+}
+function saveSettings(){
+  DB.bizName=$('fs2-biz').value.trim()||'DFW Contracting Co.';
+  document.getElementById('logo-bizname').textContent=DB.bizName;
+  saveDB();closeModal();
+}
+
+function updateScore(){
+  const score=prompt('Enter your current credit score:',DB.credit.score);
+  if(score&&!isNaN(score)){DB.credit.score=parseInt(score);saveDB();render();}
+}
+
+// ── DELETE HELPER ──────────────────────────────────────────────
 function delItem(col,id){
-  if(!isAdmin()){alert('Only admins can delete records.');return;}
-  if(!confirm('Delete this item? This cannot be undone.'))return;
-  if(Array.isArray(DB[col])) DB[col]=DB[col].filter(x=>String(x.id)!==String(id));
+  if(!confirm('Delete this item?'))return;
+  if(Array.isArray(DB[col])){
+    DB[col]=DB[col].filter(x=>x.id!==id&&x.id!==String(id));
+  }
   saveDB();render();
 }
-function updateScore(){
-  const s=prompt('Enter current credit score:',DB.credit.score);
-  if(s&&!isNaN(s)){DB.credit.score=parseInt(s);saveDB();render();}
-}
+
+// ── EXPORT CSV ─────────────────────────────────────────────────
 function exportCSV(){
-  if(!isAdmin()){alert('Admin access only.');return;}
   const rows=[['Date','Party','Category','Note','Income','Expense']];
   DB.invoices.filter(i=>i.status==='Paid').forEach(i=>rows.push([i.paidDate||i.date,i.client,'Revenue — '+i.type,i.job,i.amount,'']));
-  DB.pos.forEach(p=>rows.push([p.date,p.vendor,'Materials',p.job,'',p.amount]));
-  DB.marketing.filter(m=>m.spend>0).forEach(m=>rows.push([m.month,m.channel,'Marketing','','',m.spend]));
+  DB.pos.forEach(p=>rows.push([p.date,p.vendor,'Materials / Supplies',p.job,'',p.amount]));
+  DB.marketing.filter(m=>m.spend>0).forEach(m=>rows.push([m.month,m.channel,'Marketing & Advertising','','',m.spend]));
   const csv=rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
   const a=document.createElement('a');
   a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
-  a.download='GTS_Ledger_'+today()+'.csv';
+  a.download='DFW_Contracting_Ledger_'+today()+'.csv';
   document.body.appendChild(a);a.click();document.body.removeChild(a);
 }
 
-// ── RENDER ────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════
+// RENDER
+// ══════════════════════════════════════════════════════════════════
 const pages={
   dashboard:pageDashboard,marketing:pageMarketing,leads:pageLeads,
   estimates:pageEstimates,projects:pageProjects,vendors:pageVendors,
   field:pageField,invoices:pageInvoices,accounting:pageAccounting,
-  subs:pageSubs,realestate:pageRealEstate,credit:pageCredit,team:pageTeam
+  subs:pageSubs,realestate:pageRealEstate,credit:pageCredit
 };
+
 function render(){
   const fn=pages[currentPage]||pageDashboard;
   $('main-content').innerHTML=fn();
   const od=DB.leads.filter(l=>isOverdue(l.followup)&&l.status!=='Won'&&l.status!=='Lost').length;
-  document.querySelectorAll('.nav-badge').forEach(el=>el.remove());
+  document.querySelectorAll('.nav-item').forEach(el=>{
+    const existing=el.querySelector('.nav-badge');
+    if(existing)existing.remove();
+  });
   if(od>0){
-    const el=document.querySelector('.nav-item[onclick="nav(\'leads\')"]');
-    if(el) el.insertAdjacentHTML('beforeend',`<span class="nav-badge">${od}</span>`);
+    const leadsNav=document.querySelector('.nav-item[onclick="nav(\'leads\')"]');
+    if(leadsNav)leadsNav.insertAdjacentHTML('beforeend',`<span class="nav-badge">${od}</span>`);
   }
 }
 
-if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
+render();
+
+// ── PWA SERVICE WORKER REGISTRATION ────────────────────────────
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').catch(()=>{});
+}
 </script>
 </body>
 </html>
-
