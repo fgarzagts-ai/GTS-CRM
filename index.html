@@ -311,7 +311,7 @@ tr:hover td{background:rgba(255,255,255,.02)}
 <script>
 // ── SUPABASE ──────────────────────────────────────────────────
 const SUPABASE_URL = 'https://ncidqasgqihvjvjxhyir.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_QybpfOIWiHAzqVzTSErMXA_FwBMJHrs';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5jaWRxYXNncWlodmp2anhoeWlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkzODY0NjAsImV4cCI6MjA5NDk2MjQ2MH0.lbnfzit8siH6MLfFNhg8NP7v9GEF9-ddJRr31qaUeic';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage:window.localStorage}});
 
 let currentUser = null;
