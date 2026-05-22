@@ -1,33 +1,30 @@
-Last login: Thu May 21 19:23:14 on ttys000
-F.gts@Frankie-MBP ~ % cat ~/Downloads/index.html | pbcopy 
-F.gts@Frankie-MBP ~ % cat ~/Downloads/index.html | pbcopy 
-F.gts@Frankie-MBP ~ % >....                                                                                             
-  estimates:pageEstimates,projects:pageProjects,vendors:pageVendors,
-  field:pageField,invoices:pageInvoices,accounting:pageAccounting,
-  subs:pageSubs,realestate:pageRealEstate,credit:pageCredit
-};
+Last login: Thu May 21 19:24:49 on ttys000
+F.gts@Frankie-MBP ~ % ls -la ~/Downloads/ | grep -i index
+-rw-r--r--@  1 F.gts  staff      80752 May 21 17:22 index_1.html
+-rw-r--r--@  1 F.gts  staff      80785 May 21 18:07 index_2.html
+-rw-r--r--@  1 F.gts  staff      83359 May 21 13:37 index.html
+F.gts@Frankie-MBP ~ % cat ~/Downloads/index_1.html | pbcopy
+F.gts@Frankie-MBP ~ % 
 
-function render(){
-  const fn=pages[currentPage]||pageDashboard;
-  $('main-content').innerHTML=fn();
-  const od=DB.leads.filter(l=>isOverdue(l.followup)&&l.status!=='Won'&&l.status!=='Lost').length;
-  document.querySelectorAll('.nav-item').forEach(el=>{
-    const existing=el.querySelector('.nav-badge');
-    if(existing)existing.remove();
-  });
-  if(od>0){
-    const leadsNav=document.querySelector('.nav-item[onclick="nav(\'leads\')"]');
-    if(leadsNav)leadsNav.insertAdjacentHTML('beforeend',`<span class="nav-badge">${od}</span>`);
-  }
-}
 
-render();
 
-// ── PWA SERVICE WORKER REGISTRATION ────────────────────────────
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('sw.js').catch(()=>{});
-}
-</script>
-</body>
-</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
