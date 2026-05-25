@@ -269,7 +269,7 @@ function showChangelog(){
 let activeCallLeadId=null;
 function dialNumber(phone,leadId,leadName){
   const digits=phone.replace(/\D/g,'');
-  window.open(`https://voice.google.com/u/0/calls?a=nc,+1${digits}`,'_blank','width=500,height=650');
+  const a=document.createElement('a');a.href=`https://voice.google.com/u/0/calls?a=nc,+1${digits}`;a.target='_blank';a.click();
   activeCallLeadId=leadId;
   $('call-log-input').value='';
   $('call-log-input').placeholder=`Log call with ${leadName}...`;
