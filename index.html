@@ -285,7 +285,7 @@ function saveCallLog(){
   dismissCallLog();
 }
 function dismissCallLog(){$('call-log-banner').classList.remove('show');activeCallLeadId=null;}
-function phoneCell(phone,leadId,leadName){
+function scheduleCallLog(leadId,leadName){setTimeout(()=>{activeCallLeadId=leadId;$('call-log-input').value='';$('call-log-input').placeholder=`Log call with ${leadName}...`;$('call-log-banner').classList.add('show');},500);} function phoneCell(phone,leadId,leadName){if(!phone)return'—';const digits=phone.replace(/\D/g,'');return`<div class="td-name">${phone}</div><div style="margin-top:4px;display:flex;gap:4px;flex-wrap:wrap"><a class="call-btn" href="https://voice.google.com/u/0/calls?a=nc,+1${digits}" target="_blank" onclick="scheduleCallLog(${leadId||'null'},'${(leadName||'').replace(/'/g,'')}')"><i class="ti ti-phone"></i> Call</a><a class="sms-btn" href="sms:${digits}" target="_blank"><i class="ti ti-message"></i> Text</a></div>`;}(phone,leadId,leadName){
   if(!phone)return'—';
   return`<div class="td-name">${phone}</div><div style="margin-top:4px;display:flex;gap:4px;flex-wrap:wrap"><button class="call-btn" onclick="dialNumber('${phone}',${leadId||'null'},'${(leadName||'').replace(/'/g,'')  }')"><i class="ti ti-phone"></i> Call</button><a class="sms-btn" href="sms:${phone.replace(/\D/g,'')}" target="_blank"><i class="ti ti-message"></i> Text</a></div>`;
 }
