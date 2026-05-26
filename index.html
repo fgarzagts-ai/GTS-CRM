@@ -252,7 +252,7 @@ function phoneCell(phone,leadId,leadName){
   if(!phone)return'—';
   const digits=phone.replace(/\D/g,'');
   const safeName=(leadName||'').replace(/'/g,'').replace(/"/g,'');
-  return `<div class="td-name">${phone}</div><div style="margin-top:4px;display:flex;gap:4px;flex-wrap:wrap"><a class="call-btn" href="https://voice.google.com/u/0/calls?a=nc,+1${digits}" target="_blank" onclick="logCall(${leadId||'null'},'${safeName}')"><i class="ti ti-phone"></i> Call</a><a class="sms-btn" href="sms:${digits}"><i class="ti ti-message"></i> Text</a></div>`;
+  return `<div class="td-name">${phone}</div><div style="margin-top:4px;display:flex;gap:4px;flex-wrap:wrap"><a class="call-btn" href="https://voice.google.com/calls?a=nc,+1${digits}" target="_blank" onclick="logCall(${leadId||'null'},'${safeName}')"><i class="ti ti-phone"></i> Call</a><a class="sms-btn" href="sms:${digits}"><i class="ti ti-message"></i> Text</a></div>`;
 }
 function logCall(leadId,leadName){
   activeCallLeadId=leadId;
